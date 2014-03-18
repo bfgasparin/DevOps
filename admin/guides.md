@@ -2,6 +2,7 @@ Automation Engine
 ------------
 
 * [Ansible](http://www.ansible.com/)
+* [Puppet](http://puppetlabs.com/)
   
 >######Examples using Ansible: 
 >* [Kunstmaan Sandbox, using Vagrant and Ansible](http://bundles.kunstmaan.be/news/kunstmaan-sandbox-using-vagrant-and-ansible)  
@@ -14,6 +15,12 @@ Environment Building
 
 - - -
 
+Clouding
+----------
+
+[Digital Ocean - SSD Clouding Server](https://www.digitalocean.com/) 
+>
+
 ***Obs:***
-Ansible + Vagrant = :)
+Ansible/Puppet + Vagrant = :)
 
