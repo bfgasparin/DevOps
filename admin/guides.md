@@ -3,6 +3,7 @@ Automation Engine
 
 * [Ansible](http://www.ansible.com/)
 * [Puppet](http://puppetlabs.com/)
+* [Docker](http://www.docker.com/)
   
 >######Examples using Ansible: 
 >* [Kunstmaan Sandbox, using Vagrant and Ansible](http://bundles.kunstmaan.be/news/kunstmaan-sandbox-using-vagrant-and-ansible)  
@@ -15,6 +16,7 @@ Ansible/Puppet + Vagrant = :)
 Environment Building
 ------------
 
+* [Docker](http://www.docker.com/)
 * [Vagrant](http://www.vagrantup.com/)
 * [Heroku](https://www.heroku.com/)
 
