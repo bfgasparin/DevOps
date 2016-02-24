@@ -1,18 +1,1 @@
-[
-	// Origami (Multiple Panes)
-	{ "keys": [":", "v", "s", "p"], "command": "create_pane", "args": {"direction": "right", "give_focus": true} },
-	{ "keys": [":", "s", "p"], "command": "create_pane", "args": {"direction": "down", "give_focus": true} },
-	{ "keys": [":", "b", "d"], "command": "destroy_pane", "args": {"direction": "self"} },
-	{ "keys": ["ctrl+w+c"], "command": "destroy_pane", "args": {"direction": "self"} },
-	{ "keys": ["ctrl+w+k"], "command": "travel_to_pane", "args": {"direction": "up"} },
-	{ "keys": ["ctrl+w+l"], "command": "travel_to_pane", "args": {"direction": "right"} },
-	{ "keys": ["ctrl+w+j"], "command": "travel_to_pane", "args": {"direction": "down"} },
-	{ "keys": ["ctrl+w+h"], "command": "travel_to_pane", "args": {"direction": "left"} },
-	
-	// PHP Companion
-	{ "keys": ["f6"], "command": "expand_fqcn" },
-	{ "keys": ["shift+f6"], "command": "expand_fqcn", "args": {"leading_separator": true} },
-	{ "keys": ["f5"], "command": "find_use" },
-	{ "keys": ["f4"], "command": "import_namespace" },
-	{ "keys": ["f7"], "command": "insert_php_constructor_property" }
-]
+
