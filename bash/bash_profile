@@ -1,0 +1,29 @@
+source ~/bash/completion-update-docker.bash
+source ~/bash/completion-update-git.bash
+source ~/bash/completion/git-prompt.sh
+source ~/bash/completion/git-completion.bash
+source ~/bash/completion/docker-machine-prompt.bash
+source ~/bash/color_palletes.bash 
+
+# bash-completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+    . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# Docker completion
+. ~/bash/completion/docker.bash
+. ~/bash/completion/docker-compose.bash 
+. ~/bash/completion/docker-machine.bash
+
+# Python Virtual Environment for Development (pip)
+alias dev-venv='source ~/venv/bin/activate'
+
+export PS1="${Cyan}\u${Color_Off}@${Green}\h:${BYellow}\w${Purple}\$(__docker_machine_ps1 ' [%s]')${Color_Off}${Cyan}\$(__git_ps1 ' (%s)')${Color_Off} \$ "
+
+export CLICOLOR=1
+# export LSCOLORS=ExFxBxDxCxegedabagacad   # for Light Terminal Theme
+export LSCOLORS=GxFxCxDxBxegedabagaced   # for Dark Terminal Theme
+alias ls='ls -GFha'
+
+# MacPorts Installer addition on 2015-12-28_at_17:49:51: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
