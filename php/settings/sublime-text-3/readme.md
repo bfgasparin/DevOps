@@ -19,3 +19,4 @@ This directory contains SUblime Text Package configuration files
 - PHP Getters and Setters
 - Sublime Linter
 - Sublime Linter - php
+- SCSS
