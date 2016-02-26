@@ -19,5 +19,6 @@
 	"overlay_scroll_bars": "enabled",
 	"show_panel_on_build": false,
 	"theme": "Material-Theme.sublime-theme",
-	"use_simple_full_screen": true
+	"use_simple_full_screen": true,
+	"vintage_start_in_command_mode": true,
 }
