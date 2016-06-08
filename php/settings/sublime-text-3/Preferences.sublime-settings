@@ -13,5 +13,6 @@
 	"show_panel_on_build": false,
 	"theme": "Material-Theme.sublime-theme",
 	"use_simple_full_screen": true,
-	"vintage_start_in_command_mode": true
+	"vintage_start_in_command_mode": true,
+	"translate_tabs_to_spaces": true,
 }
