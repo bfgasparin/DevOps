@@ -1,18 +1,11 @@
 {
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/User/SublimeLinter/Facebook (SL).tmTheme",
+	"color_scheme": "Packages/Colorsublime - Themes/Facebook.tmTheme",
 	"font_face": "Fira Code",
 	"font_size": 15,
 	"highlight_line": true,
-	"ignored_packages":
-	[
-	],
-	"indent_guide_options":
-	[
-		"draw_normal",
-		"draw_active"
-	],
-	"line_numbers": false,
+	"ignored_packages":[],
+	"indent_guide_options": ["draw_active"],
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,
 	"margin": 0,
@@ -20,5 +13,5 @@
 	"show_panel_on_build": false,
 	"theme": "Material-Theme.sublime-theme",
 	"use_simple_full_screen": true,
-	"vintage_start_in_command_mode": true,
+	"vintage_start_in_command_mode": true
 }
