@@ -20,3 +20,7 @@ This directory contains SUblime Text Package configuration files
 - Sublime Linter
 - Sublime Linter - php
 - SCSS
+- Emmet
+- Dockerfile Syntax Highlight
+- Vue Syntax Highlight
+- Color Highlighter
