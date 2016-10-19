@@ -1,15 +1,47 @@
 [
-	// Origami (Multiple Panes)
-	{ "keys": [":", "v", "s", "p"], "command": "create_pane", "args": {"direction": "right", "give_focus": true} },
-	{ "keys": [":", "s", "p"], "command": "create_pane", "args": {"direction": "down", "give_focus": true} },
-	{ "keys": [":", "b", "d"], "command": "destroy_pane", "args": {"direction": "self"} },
-	{ "keys": ["ctrl+w", "c"], "command": "destroy_pane", "args": {"direction": "self"} },
-	{ "keys": ["ctrl+w", "k"], "command": "travel_to_pane", "args": {"direction": "up"} },
-	{ "keys": ["ctrl+w", "l"], "command": "travel_to_pane", "args": {"direction": "right"} },
-	{ "keys": ["ctrl+w", "j"], "command": "travel_to_pane", "args": {"direction": "down"} },
-	{ "keys": ["ctrl+w", "h"], "command": "travel_to_pane", "args": {"direction": "left"} },
-    { "keys": ["ctrl+w", "_"], "command": "zoom_pane", "args": {"fraction": 0.9} },
-  	{ "keys": ["ctrl+w", "="], "command": "unzoom_pane", "args": {} },
+	// Side bar navigation keys
+	{ "keys": ["h"], "command": "move", "args": {"by": "characters", "forward": false}, "context":
+	[ {"key": "control", "operand": "sidebar_tree"} ]
+	},
+	{ "keys": ["j"], "command": "move", "args": {"by": "lines", "forward": true}, "context":
+	[ {"key": "control", "operand": "sidebar_tree"} ]
+	},
+	{ "keys": ["k"], "command": "move", "args": {"by": "lines", "forward": false}, "context":
+	[ {"key": "control", "operand": "sidebar_tree"} ]
+	},
+	{ "keys": ["l"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
+	[ {"key": "control", "operand": "sidebar_tree"} ]
+	},
+
+	// esc key binding
+	{ "keys": ["j", "j"], "command": "exit_insert_mode",
+	"context":
+	[
+	{ "key": "setting.command_mode", "operand": false },
+	{ "key": "setting.is_widget", "operand": false }
+	]
+	},
+
+	// Origame shortcuts
+	{ "keys": [":", "v", "s", "p"], "command": "create_pane", "args": {"direction": "right", "give_focus": true}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": [":", "s", "p"], "command": "create_pane", "args": {"direction": "down", "give_focus": true}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": [":", "b", "d"], "command": "destroy_pane", "args": {"direction": "self"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "c"], "command": "destroy_pane", "args": {"direction": "self"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "ctrl+shift+k"], "command": "destroy_pane", "args": {"direction": "up"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "ctrl+shift+l"], "command": "destroy_pane", "args": {"direction": "right"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "ctrl+shift+j"], "command": "destroy_pane", "args": {"direction": "down"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "ctrl+shift+h"], "command": "destroy_pane", "args": {"direction": "left"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "k"], "command": "travel_to_pane", "args": {"direction": "up"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "l"], "command": "travel_to_pane", "args": {"direction": "right"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "j"], "command": "travel_to_pane", "args": {"direction": "down"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "h"], "command": "travel_to_pane", "args": {"direction": "left"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "K"], "command": "carry_file_to_pane", "args": {"direction": "up"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "L"], "command": "carry_file_to_pane", "args": {"direction": "right"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "J"], "command": "carry_file_to_pane", "args": {"direction": "down"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "H"], "command": "carry_file_to_pane", "args": {"direction": "left"}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "_"], "command": "zoom_pane", "args": {"fraction": 0.9}, "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["ctrl+w", "="], "command": "unzoom_pane", "args": {} },
+	
 	// PHP Companion
 	{ "keys": ["f6"], "command": "expand_fqcn" },
 	{ "keys": ["shift+f6"], "command": "expand_fqcn", "args": {"leading_separator": true} },
