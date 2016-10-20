@@ -9,7 +9,7 @@
 	"draw_minimap": false,
 	"draw_minimap_border": false,
 	"fade_fold_buttons": false,
-	"font_size": 11,
+	"font_size": 10,
 	"hide_minimap": true,
 	"highlight_line": true,
 	"ignored_packages":
@@ -19,9 +19,9 @@
 	[
 		"draw_normal", "draw_active"
 	],
-	"line_padding_bottom": 12,
-	"line_padding_top": 12,
-	"margin": 12,
+	"line_padding_bottom": 11,
+	"line_padding_top": 11,
+	"margin": 11,
 	"material_theme_accent_cyan": true,
 	"material_theme_bold_tab": true,
 	"material_theme_compact_panel": true,
