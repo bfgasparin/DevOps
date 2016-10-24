@@ -1,0 +1,17 @@
+# Comnands to simulate Mac Os commands.
+# To change key bindg on ubuntu, use the CompizCongig and dconf-tools tools
+
+  { "keys": ["alt+d"], "command": "find_under_expand" },
+  { "keys": ["super+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
+  { "keys": ["super+n"], "command": "new_file" },
+  { "keys": ["super+c"], "command": "copy" },
+  { "keys": ["super+x"], "command": "cut" },
+  { "keys": ["super+v"], "command": "paste" },
+  { "keys": ["super+z"], "command": "undo" },
+  { "keys": ["super+y"], "command": "redo" },
+  { "keys": ["super+shift+z"], "command": "redo" },
+  { "keys": ["super+s"], "command": "save" },
+  { "keys": ["super+left"], "command": "move_to", "args": { "to": "bol" } },
+  { "keys": ["super+right"], "command": "move_to", "args": { "to": "eol" } },
+  { "keys": ["super+a"], "command": "select_all" },
+  { "keys": ["super+shift+p"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
