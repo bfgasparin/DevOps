@@ -15,3 +15,32 @@
   { "keys": ["super+right"], "command": "move_to", "args": { "to": "eol" } },
   { "keys": ["super+a"], "command": "select_all" },
   { "keys": ["super+shift+p"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
+
+# Emmet shortcuts to somulate y own person Mac Os X Emmet shortcuts 
+
+  {"keys": ["super+'"], "args": {"action": "remove_tag"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.remove_tag"} ] }, 
+  {"keys": ["ctrl+up"], "args": {"action": "increment_number_by_1"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.increment_number_by_1"} ] }, 
+  {"keys": ["super+shift+forward_slash"], "args": {"action": "toggle_comment"}, "command": "run_emmet_action", "context": [{"operand": "source.css, source.less, source.scss, source.postcss, text.xml, text.html - source", "operator": "equal", "match_all": true, "key": "selector"}, {"match_all": true, "key": "emmet_action_enabled.toggle_comment"} ] }, 
+  {"keys": ["shift+super+."], "args": {"action": "select_next_item"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.select_next_item"} ] }, 
+  {"keys": ["ctrl+alt+enter"], "command": "expand_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.expand_as_you_type"} ] }, 
+  {"keys": ["alt+down"], "args": {"action": "decrement_number_by_01"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.decrement_number_by_01"} ] }, 
+  {"keys": ["shift+ctrl+d"], "args": {"action": "encode_decode_data_url"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.encode_decode_data_url"} ] }, 
+  {"keys": ["shift+super+y"], "args": {"action": "evaluate_math_expression"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.evaluate_math_expression"} ] }, 
+  {"keys": ["ctrl+j"], "args": {"action": "balance_inward"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.balance_inward"} ] }, 
+  {"keys": ["ctrl+k"], "args": {"action": "balance_outward"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.balance_outward"} ] }, 
+  {"keys": ["alt+super+up"], "args": {"action": "increment_number_by_10"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.increment_number_by_10"} ] }, 
+  {"keys": ["shift+super+r"], "args": {"action": "reflect_css_value"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.reflect_css_value"} ] }, 
+  {"keys": ["ctrl+alt+left"], "args": {"action": "prev_edit_point"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.prev_edit_point"} ] }, 
+  {"keys": ["shift+super+,"], "args": {"action": "select_previous_item"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.select_previous_item"} ] }, 
+  {"keys": ["shift+ctrl+i"], "args": {"action": "update_image_size"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.update_image_size"} ] }, 
+  {"keys": ["ctrl+alt+right"], "args": {"action": "next_edit_point"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.next_edit_point"} ] }, 
+  {"keys": ["shift+super+'"], "args": {"action": "split_join_tag"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.split_join_tag"} ] }, 
+  {"keys": ["alt+super+down"], "args": {"action": "decrement_number_by_10"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.decrement_number_by_10"} ] }, 
+  {"keys": ["ctrl+w"], "command": "wrap_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.wrap_as_you_type"} ] }, 
+  {"keys": ["super+shift+t"], "command": "rename_tag", "context": [{"key": "emmet_action_enabled.rename_tag"} ] }, 
+  {"keys": ["alt+up"], "args": {"action": "increment_number_by_01"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.increment_number_by_01"} ] }, 
+  {"keys": ["super+shift+u"], "command": "update_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.update_as_you_type"} ] }, 
+  {"keys": ["ctrl+t"], "args": {"action": "matching_pair"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.matching_pair"} ] }, 
+  {"keys": ["ctrl+down"], "args": {"action": "decrement_number_by_1"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.decrement_number_by_1"} ] }, 
+  {"keys": ["ctrl+e"], "args": {"action": "expand_abbreviation"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.expand_abbreviation"} ] 
+  }, ]
