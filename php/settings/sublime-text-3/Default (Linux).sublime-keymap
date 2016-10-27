@@ -1,5 +1,5 @@
-# Comnands to simulate Mac Os commands.
-# To change key bindg on ubuntu, use the CompizCongig and dconf-tools tools
+// Comnands to simulate Mac Os commands.
+// To change key bindg on ubuntu, use the CompizCongig and dconf-tools tools
 
   { "keys": ["alt+d"], "command": "find_under_expand" },
   { "keys": ["super+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
@@ -16,7 +16,7 @@
   { "keys": ["super+a"], "command": "select_all" },
   { "keys": ["super+shift+p"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
 
-# Emmet shortcuts to somulate y own person Mac Os X Emmet shortcuts 
+// Emmet shortcuts to somulate y own person Mac Os X Emmet shortcuts 
 
   {"keys": ["super+'"], "args": {"action": "remove_tag"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.remove_tag"} ] }, 
   {"keys": ["ctrl+up"], "args": {"action": "increment_number_by_1"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.increment_number_by_1"} ] }, 
