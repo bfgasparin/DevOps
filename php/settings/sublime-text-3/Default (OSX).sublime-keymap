@@ -50,5 +50,9 @@
 	{ "keys": ["shift+f6"], "command": "expand_fqcn", "args": {"leading_separator": true} },
 	{ "keys": ["f5"], "command": "find_use" },
 	{ "keys": ["f4"], "command": "import_namespace" },
-	{ "keys": ["f7"], "command": "insert_php_constructor_property" }
+	{ "keys": ["f7"], "command": "insert_php_constructor_property" },
+	
+	{ "keys": ["ctrl+6"], "command": "next_view_in_stack" },
+	{ "keys": ["super+shift+m"], "command": "goto_definition" },
+	{ "keys": ["ctrl+shift+t"], "command": "transpose" },
 ]
