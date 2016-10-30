@@ -58,7 +58,4 @@
 	
 	// Emmet shortcuts 
 	{"keys": [ "ctrl+k" ], "args": { "action": "balance_outward" }, "command": "run_emmet_action", "context": [{ "key": "emmet_action_enabled.balance_outward" } ] },
-	{"keys": ["super+shift+t"], "command": "rename_tag", "context": [{"key": "emmet_action_enabled.rename_tag"} ] },
-	{"keys": ["super+shift+u"], "command": "update_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.update_as_you_type"} ] },
-	{"keys": ["ctrl+t"], "args": {"action": "matching_pair"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.matching_pair"} ] },
 ]
