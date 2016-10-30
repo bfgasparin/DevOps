@@ -18,6 +18,9 @@
 
 // Emmet shortcuts to somulate y own person Mac Os X Emmet shortcuts 
 
+  {"keys": ["super+shift+k"], "command": "rename_tag", "context": [{"key": "emmet_action_enabled.rename_tag"} ] },
+	{"keys": ["ctrl+shift+u"], "command": "update_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.update_as_you_type"} ] },
+	{"keys": ["ctrl+t"], "args": {"action": "matching_pair"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.matching_pair"} ] },
   {"keys": ["super+'"], "args": {"action": "remove_tag"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.remove_tag"} ] }, 
   {"keys": ["ctrl+up"], "args": {"action": "increment_number_by_1"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.increment_number_by_1"} ] }, 
   {"keys": ["super+shift+forward_slash"], "args": {"action": "toggle_comment"}, "command": "run_emmet_action", "context": [{"operand": "source.css, source.less, source.scss, source.postcss, text.xml, text.html - source", "operator": "equal", "match_all": true, "key": "selector"}, {"match_all": true, "key": "emmet_action_enabled.toggle_comment"} ] }, 
@@ -37,10 +40,7 @@
   {"keys": ["shift+super+'"], "args": {"action": "split_join_tag"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.split_join_tag"} ] }, 
   {"keys": ["alt+super+down"], "args": {"action": "decrement_number_by_10"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.decrement_number_by_10"} ] }, 
   {"keys": ["ctrl+w"], "command": "wrap_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.wrap_as_you_type"} ] }, 
-  {"keys": ["super+shift+t"], "command": "rename_tag", "context": [{"key": "emmet_action_enabled.rename_tag"} ] }, 
   {"keys": ["alt+up"], "args": {"action": "increment_number_by_01"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.increment_number_by_01"} ] }, 
-  {"keys": ["super+shift+u"], "command": "update_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.update_as_you_type"} ] }, 
-  {"keys": ["ctrl+t"], "args": {"action": "matching_pair"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.matching_pair"} ] }, 
   {"keys": ["ctrl+down"], "args": {"action": "decrement_number_by_1"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.decrement_number_by_1"} ] }, 
   {"keys": ["ctrl+e"], "args": {"action": "expand_abbreviation"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.expand_abbreviation"} ] 
   }, ]
