@@ -5,11 +5,12 @@
 	"caret_extra_top": 1,
 	"caret_extra_width": 1,
 	"caret_style": "blink",
-	"color_scheme": "Packages/Colorsublime - Themes/Trixie.tmTheme",
+	"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 	"draw_minimap": false,
 	"draw_minimap_border": false,
 	"fade_fold_buttons": false,
-	"font_size": 10,
+	"font_size": 16,
+	"font_face": "Hack",
 	"hide_minimap": true,
 	"highlight_line": true,
 	"ignored_packages":
@@ -17,14 +18,16 @@
 	],
 	"indent_guide_options":
 	[
-		"draw_normal", "draw_active"
+		"draw_normal",
+		"draw_active"
 	],
-	"line_padding_bottom": 11,
-	"line_padding_top": 11,
-	"margin": 11,
+	"line_padding_bottom": 12,
+	"line_padding_top": 12,
+	"margin": 12,
 	"material_theme_accent_cyan": true,
 	"material_theme_bold_tab": true,
 	"material_theme_compact_panel": true,
+	"material_theme_compact_sidebar": true,
 	"material_theme_contrast_fileicon": true,
 	"material_theme_contrast_mode": true,
 	"material_theme_panel_separator": true,
@@ -33,10 +36,9 @@
 	"show_encoding": true,
 	"show_line_endings": true,
 	"show_panel_on_build": false,
-	"theme": "Material-Theme-Darker.sublime-theme",
+	"theme": "Material-Theme.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"use_simple_full_screen": true,
 	"vintage_start_in_command_mode": true
 }
-
