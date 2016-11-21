@@ -12,6 +12,7 @@
 	{ "keys": ["l"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
 	[ {"key": "control", "operand": "sidebar_tree"} ]
 	},
+	{ "keys": ["ctrl+shift+0"], "command": "reveal_in_side_bar"},
 
 	// esc key binding
 	{ "keys": ["j", "j"], "command": "exit_insert_mode",
@@ -23,7 +24,6 @@
 	},
 
 	// Origame shortcuts
-	 // Origame shortcuts
 	{ "keys": [":", "v", "s", "p"], "command": "create_pane", "args": {"direction": "right", "give_focus": true}, "context": [{"key": "setting.command_mode"}] },
 	{ "keys": [":", "s", "p"], "command": "create_pane", "args": {"direction": "down", "give_focus": true}, "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["ctrl+w", "v"], "command": "create_pane", "args": {"direction": "right", "give_focus": true}, "context": [{"key": "setting.command_mode"}] },
@@ -44,20 +44,17 @@
 	{ "keys": ["ctrl+w", "H"], "command": "carry_file_to_pane", "args": {"direction": "left"}, "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["ctrl+w", "_"], "command": "zoom_pane", "args": {"fraction": 0.9}, "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["ctrl+w", "="], "command": "unzoom_pane", "args": {} },
-	
+
 	// PHP Companion
 	{ "keys": ["f6"], "command": "expand_fqcn" },
 	{ "keys": ["shift+f6"], "command": "expand_fqcn", "args": {"leading_separator": true} },
 	{ "keys": ["f5"], "command": "find_use" },
 	{ "keys": ["f4"], "command": "import_namespace" },
 	{ "keys": ["f7"], "command": "insert_php_constructor_property" },
-	
-	{ "keys": ["ctrl+6"], "command": "next_view_in_stack" },
-	{ "keys": ["super+shift+m"], "command": "goto_definition" },
-	{ "keys": ["ctrl+shift+t"], "command": "transpose" },
-	
-	// Emmet shortcuts 
+
+	// Emmet shortuts
 	{"keys": ["ctrl+shift+w"], "command": "wrap_as_you_type", "context": [{"operand": false, "operator": "equal", "match_all": true, "key": "setting.is_widget"}, {"match_all": true, "key": "emmet_action_enabled.wrap_as_you_type"} ] },
 	{"keys": [ "ctrl+k" ], "args": { "action": "balance_outward" }, "command": "run_emmet_action", "context": [{ "key": "emmet_action_enabled.balance_outward" } ] },
 	{"keys": ["ctrl+t"], "args": {"action": "matching_pair"}, "command": "run_emmet_action", "context": [{"key": "emmet_action_enabled.matching_pair"} ] },
+	{"keys": ["ctrl+d"], "command": "scroll_lines", "args": {"amount": -9.0}, "context": [{"key": "setting.command_mode"}]},
 ]
