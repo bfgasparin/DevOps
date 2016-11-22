@@ -12,4 +12,5 @@
     "phpmd_executable_path": "/Users/brunogasparin/.composer/vendor/bin/phpmd",
     "php_cs_fixer_executable_path": "/Users/brunogasparin/.composer/vendor/bin/php-cs-fixer",
     "phpcbf_executable_path": "/Users/brunogasparin/.composer/vendor/bin/phpcbf",
+    "php_cs_fixer_additional_args": { "--fixers": "-psr0" },
 }
