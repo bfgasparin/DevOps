@@ -1,0 +1,15 @@
+{
+    "show_debug": true,
+    "phpcs_execute_on_save": true,
+    "phpcs_show_errors_on_save": true,
+    "php_cs_fixer_on_save": true,
+    "phpcs_outline_for_errors": true,
+    "phpcs_show_gutter_marks": true,
+    "php_cs_fixer_show_quick_panel" : true,
+    "phpcbf_on_save": false,
+    "phpmd_run" : true,
+    "phpcs_executable_path": "/Users/brunogasparin/.composer/vendor/bin/phpcs",
+    "phpmd_executable_path": "/Users/brunogasparin/.composer/vendor/bin/phpmd",
+    "php_cs_fixer_executable_path": "/Users/brunogasparin/.composer/vendor/bin/php-cs-fixer",
+    "phpcbf_executable_path": "/Users/brunogasparin/.composer/vendor/bin/phpcbf",
+}
