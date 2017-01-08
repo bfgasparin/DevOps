@@ -5,6 +5,8 @@ if has('vim_starting')
 endif
 
 set clipboard=unnamed           " set the clipboard as the same as OS
+
+
 "-------------Visual-------------"
 
 syntax enable
@@ -33,6 +35,7 @@ set nojoinspaces            " Prevents inserting two spaces after punctuation on
 
 set laststatus=2            " Set statusline to appear all the time (default to appear only when split windows)
 
+
 "-------------Coding-------------"
 
 set backspace=indent,eol,start    " makes backspace behave like every other editor
@@ -53,6 +56,7 @@ set foldnestmax=10          " deepest fold is 10 levels
 set nofoldenable            " don't fold by default
 set foldlevel=1
 
+set cpoptions+=y                  " Add yank command can be redone with "."
 "----------------Buffer--------------
 set hidden
 " nnoremap <leader>d :call functions#DeleteFileAndCloseBuffer() " Its not working
@@ -73,6 +77,11 @@ set incsearch               " set incremental search, like modern browsers
 
 " set a map leader for more key combos
 let mapleader = ','
+
+" Quick write Vim session for the project to be restored later
+map <F2> :mksession! .vimsession.vim <cr> 
+" Restore Vim session for the project 
+map <F3> :source .vimsession.vim <cr> 
 
 " remap esc
 imap jj <esc>
@@ -145,7 +154,7 @@ let NERDTreeHijackNetrw = 0
 "/ Tagbar
 "/
 " Open the Tagbar window, jump to it and close it on tag selection
-nnoremap <Leader>t :TagbarOpenAutoClose<CR>
+nnoremap <Leader>] :TagbarOpenAutoClose<CR>
 
 
 "/
@@ -172,8 +181,6 @@ let g:airline_theme='wombat'
 "/
 "/ CtrlP
 "/
-" Open file menu
-nnoremap <leader>p :CtrlP<CR>
 " Open buffer menu
 nnoremap <leader>b :CtrlPBuffer<CR>
 " Open most recently used files
@@ -284,9 +291,9 @@ autocmd FileType php noremap <Leader>us :call PhpSortUse()<CR>
 "/ Deoplete Padawan
 "/
 " Register custom neovim commands to start Padawan server
-" command! PadawanStart call deoplete#sources#padawan#StartServer()
-" command! PadawanStop call deoplete#sources#padawan#StopServer()
-" command! PadawanRestart call deoplete#sources#padawan#RestartServer()
+command! PadawanStart call deoplete#sources#padawan#StartServer()
+command! PadawanStop call deoplete#sources#padawan#StopServer()
+command! PadawanRestart call deoplete#sources#padawan#RestartServer()
 
 " Note : (php igbinary extenion was installed for better padawan
 "performance)
@@ -303,6 +310,18 @@ nnoremap <silent> <F8> :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent> <F9> :call PhpCsFixerFixFile()<CR>
 
 
+"/
+"/ Vim Test
+"/
+let test#strategy = "neovim"                      " Runs test commands with :terminal
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+
+
+
 "-------------Auto-Commands--------------"
 
 " Automatically source the Vimrc file on save.
@@ -315,26 +334,19 @@ augroup END
 
 set tags+=tags       " set the ctag files
 
+
+
 " ---------Notes and Tips---------------"
 
 "/
 "/ Commands
 "/
-" Type @: to repead the last : comand. Use @@ for further repeats
+" Type @: to repead the last comand-line command. Use @@ for further repeats
 " Type f1 to open plugins help menu
 " Press <leader><space> to clear simple highlights (custom shortcut)
 " Use :registers to see all register list
 " Press <leader>s to save the current file (custom shortcut)
 " Press <leader>w to delete the current buffer (shortcut to :db)
-" On command mode
-"     press <C-p> or <C-n> to go backward and foward tohistory commands
-"     press <C-f> to open a new window with the command history
-"     press <C-b> to go to the beginning of the sentence
-"     press <C-e> to go to the end of the sentence
-"     press <C-u> to delete all before cursor
-"     press <C-c> to cancel the command and return to previous windows
-"     Press <C-w> to delete word
-"     Press <C-u> to delete sentence
 
 
 "/
@@ -347,18 +359,28 @@ set tags+=tags       " set the ctag files
 " Press <leader>us to sort use statement for the current php file (custom shortcut from vim-php-namespace)
 " Press <leader>ec to expand the fully qualified php class name (custom shortcut from vim-php-namespace)
 "
-" Press <leader>pc to run php-cs-fixer into the current file
-" Press <leader>pcd to run php-cs-fixer into the current directory
+" Press <F8> to run php-cs-fixer into the current file
+" Press <F9> to run php-cs-fixer into the current directory
 "
 " Use "<x> to use the content at register <x>.
 "   Examples
 "     "ay$    to copy rest of line to register a
-"	  "6p     to paste the content of register 6
+"     "6p     to paste the content of register 6
 "
 
-" On INSERT mode, commands for terminal shell can be applied, like:
+" On COMMAND mode, commands for terminal shell can be applied, like:
+"     Press <C-p> or <C-n> to go backward and foward to executed commands history
+"     Press <C-f> to open a new window with the command history
+"     Press <C-b> to go to the beginning of the sentence
+"     Press <C-e> to go to the end of the sentence
+"     Press <C-h> to delete a char
 "     Press <C-w> to delete word
+"     Press <C-u> to delete all before cursor
+"     Press <C-c> to cancel the command and return to previous windows
 "     Press <C-u> to delete sentence
+"     Press <C-m> as alias to <cr>
+"
+"     Use % to reference to current fully qualified filename
 
 
 "/
@@ -367,6 +389,14 @@ set tags+=tags       " set the ctag files
 " Press <F8>  to execute php-cs-fixer to the current file
 " Press <F9>  to execute php-cs-fixer to the current file
 
+"/
+"/ Vim Test
+"/
+" Press <leader>t , in a test file, to test the current function (Run the last test function runned if it's not in a test file)
+" Press <leader>tf , in a test file, to test the current test file. (Run the last test file runned if it's not in a test file)
+" Press <leader>ta , in any place, to test all suite test 
+" Press <leader>tl , in any place, to run the last test command
+" Press <leader>tg , in any place, to open and go the the last test function runned ( even if a suite test or a file test was the last runned test commands)
 
 "/
 "/ Searching
@@ -400,11 +430,13 @@ set tags+=tags       " set the ctag files
 "/ Navigation
 "/
 " Press zz to center the line where cursor is located
-" Press - to open Vinager navigator
-"    > Type f1 to show helper
-" Press  <C-i> (or <Tab>)  and <C-o> jumps foward and backward to jumps
+" Press - to open Vinager file manager
+" Press <leader>] to open Tagbar windows with current tags for the file
+" Press <C-n> to toogle NERDTree 
+" Press  <C-i> and <C-o> jumps foward and backward to jumps
 " Press g, and g; to go foward and backward to edit points (change list is per file)
 " Press % to go to the item after or under the cursor. |inclusive| motion. Match itens can be ([{}])	
+"
 
 
 " " Buffers
@@ -454,10 +486,11 @@ set tags+=tags       " set the ctag files
 " Press <leader>m to open most used files list (custom shortcut)
 
 "/
-"/ Vinager
+"/ Vinager (wrapper for netrw ot enhance it)
 "/
 " Press - to open Vinager file manager
-" Press d to create a new directory
+"     Type f1 to show helper
+"     Press d to create a new directory
 "     Press D to attempt to delete file/directory
 "     Press o to enter the file/directory under the cursor in a new browser window.  A horizontal split is used.
 "     Press v to enter the file/directory under the cursor in a new browser window.  A vertical split is used.
@@ -465,6 +498,17 @@ set tags+=tags       " set the ctag files
 "     Press p to preview the file (open a preview viewport)
 "     Press R to rename the file/directory
 "     Press % to create a new file in the current directory
+
+
+"/
+"/ Tagbar
+"/
+" Press <leader>] to open tagbar windows with current tags for the file
+"     Press p to preview the tag into the file
+"     Press <cr> to select tag and close the tagbar windows
+"     Press q to close tagbar windows
+
+
 "/
 "/ Spliting
 "/
@@ -481,10 +525,15 @@ set tags+=tags       " set the ctag files
 "/
 "/ CtrlP
 "/
+" Press C-p to open CtrlP menu file explorer
+" Press C-c to close CtrlP menu file explorer
 " Press C-j or C-j to navigate during CtrlP explorer
 " Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
 " Press <c-f> and <c-b> to cycle between modes.
 " Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab (c-t) or in a new split (c-v), or special program (c-x)
+"     Use <c-o> to see a list options on how to open the current file
+" Press <c-d> to toggle between full-path search and filename only search.
+" Press <c-r> to toggle between the string mode and full regexp mode.
 " Use <c-y> to create a new file and its parent directories.
 
 "/
@@ -511,9 +560,13 @@ set tags+=tags       " set the ctag files
 " Use :Git mv % to rename the current file and the corresponding Vim buffer (equivalent to :Gmove, but does not update the buffer)
 
 "/
-"/ Ack
+"/ Ack (Searching)
 "/
-" Press <Leader>f to execute :Ack command to file an expression
+" Press <Leader>f to execute :Ack command to find for an expression
+" The Ack searches for regular expression, so if needs to find the string 'something()', need to type something\(\)
+" The second parameter is the file/directory to search. Example: to search only in the current file, use:
+"     :Ack needed %
+"
 "    ?   to open help menu
 "    O   to open and close the quickfix windows
 "    o   to open (same as Enter)
