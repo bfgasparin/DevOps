@@ -603,5 +603,5 @@ set tags+=tags       " set the ctag files
 "/ External libs
 "/
 " - universal-ctags (for tagging files) - uses .ctagsignore to ignore files
-" - ryanoasis/nerd-fonts for fontd with devicons
+" - ryanoasis/nerd-fonts for fonts with devicons
 " - ggreer/the_silver_searcher (ag for code searching) - uses .ignore to ignore files
