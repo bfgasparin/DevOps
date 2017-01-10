@@ -291,9 +291,9 @@ autocmd FileType php noremap <Leader>us :call PhpSortUse()<CR>
 "/ Deoplete Padawan
 "/
 " Register custom neovim commands to start Padawan server
-command! PadawanStart call deoplete#sources#padawan#StartServer()
-command! PadawanStop call deoplete#sources#padawan#StopServer()
-command! PadawanRestart call deoplete#sources#padawan#RestartServer()
+" command! PadawanStart call deoplete#sources#padawan#StartServer()
+" command! PadawanStop call deoplete#sources#padawan#StopServer()
+" command! PadawanRestart call deoplete#sources#padawan#RestartServer()
 
 " Note : (php igbinary extenion was installed for better padawan
 "performance)
@@ -309,6 +309,14 @@ let g:php_cs_fixer_rules = "@PSR2"        " set PSR2 rules to be used on cs fixe
 nnoremap <silent> <F8> :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent> <F9> :call PhpCsFixerFixFile()<CR>
 
+"/
+"/ Neomake (assyn lint framework)
+"/
+" Run Neomake on the current file on every write:
+autocmd! BufWritePost * Neomake 
+
+" Note : For PHP, Neomake, by default, will run php -l, phpcs and phpmd, if available.
+let g:neomake_php_phpcs_args_standard="PSR2"        " set PSR2 rules to be used by phpcs when new make runs. 
 
 "/
 "/ Vim Test
@@ -330,6 +338,8 @@ augroup autosourcing
 	autocmd BufWritePost init.vim  source %
 augroup END
 
+" Regerate all ctags, asynchronously, when every buffer is saved
+autocmd! BufWritePost * call jobstart("ctags-update.sh")
 "-------------Ctags----------------------"
 
 set tags+=tags       " set the ctag files
@@ -347,8 +357,15 @@ set tags+=tags       " set the ctag files
 " Use :registers to see all register list
 " Press <leader>s to save the current file (custom shortcut)
 " Press <leader>w to delete the current buffer (shortcut to :db)
+" In insert mode,press <c-o> to execute a single command on normal mode and go back automatically to insert mode
 
 
+"/
+"/ Neomake
+"/
+" Neomake runs link and put the result into the curret windows associated list windows.
+" So to see all the lint errors, type :lopen
+"   Type <cr> to go to the error line in the target file
 "/
 "/ Coding
 "/
@@ -443,6 +460,8 @@ set tags+=tags       " set the ctag files
 " Press <leader>b to open buffer list  (custom shortcut from CtrlP)
 " Press <leader>. toggle between current and last buffer  (custom shortcut for <C-^>)
 " Press <C-l> and <C-h> to go foward and backward to the buffer list
+" Use :bufdo {command} to execute the {command} in every open buffer
+"   :bufdo bd    to delete all buffers
 "
 " " Marks
 " Press m<a letter> to set a mark in the current file e use `<letter> to go to the mark (mark works only per file)

@@ -32,6 +32,7 @@ Plug 'janko-m/vim-test'                                       " Add support for 
 Plug 'SirVer/ultisnips'                                       " Add snippet support 
 Plug 'tobyS/vmustache'                                        " Template system engine (required by tobyS/pdv)
 Plug 'tobyS/pdv'                                              " to generate PHP docblock
+Plug 'neomake/neomake'                                        " Add lint support using async Neovim job control
 
 " navigation
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder
