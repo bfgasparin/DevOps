@@ -8,7 +8,8 @@ Plug 'gosukiwi/vim-atom-dark'           " colorscheme
 Plug 'vim-airline/vim-airline'        " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'Yggdroot/indentLine'            " Display the indention levels with thin vertical lines
-
+Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespaces and enable commands to fix it
+Plug 'airblade/vim-gitgutter'         " Shows a git diff in the 'gutter'
 
 " utilities
 Plug 'junegunn/vim-easy-align'                                " mappings for aligment content
@@ -16,8 +17,7 @@ Plug 'tpope/vim-surround'                                     " mappings to easi
 Plug 'tpope/vim-fugitive'                                     " awesome Git wrapper
 Plug 'tpope/vim-commentary'                                   " comment stuff out
 Plug 'tpope/vim-abolish'                                      " easily search for, substitute, and abbreviate multiple variants of a word (snakeCase, camelCase, ...)
-Plug 'mileszs/ack.vim'                                        " code Searching tool
-Plug 'skwp/greplace.vim'                                      " search and Replace plugin
+Plug 'mhinz/vim-grepper'                                      " code Searching/Search and Replace  tool (With Neovim Async support)
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " autocomplete feature
 " @todo Configure padawan-php to work without bug https://github.com/padawan-php/padawan.php/issues/71#issuecomment-270927679 
 " Plug 'padawan-php/deoplete-padawan'                         " asynchronous completion of PHP code using padawan project
@@ -39,5 +39,5 @@ Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder
 Plug 'tpope/vim-vinegar' " alternative and minimalist file finder
 Plug 'majutsushi/tagbar' " show current file ctags in a diferent view
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
-
+Plug 'romainl/vim-qf'   " Collections of settings, commands and mappings to easily work with quickfix/location windows
 call plug#end()

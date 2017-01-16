@@ -4,15 +4,14 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
 
-set clipboard=unnamed           " set the clipboard as the same as OS
-
-
-"-------------Visual-------------"
+"-------------visual-------------"
 
 syntax enable
 set encoding=utf8
 set t_Co=256                     " Explicitly tell vim that the terminal supports 256 colors"
 colorscheme atom-dark-256        " Set the colorscheme
+
+set cursorline                   " Highlight the cursor line
 
 " make the highlighting of tabs and other non-text less annoying
 highlight SpecialKey ctermbg=none ctermfg=8
@@ -26,6 +25,7 @@ set number                  " show line numbers
 
 " customize the vertical split line
 hi vertsplit ctermfg=232 ctermbg=192
+
 set wrap                    " turn on line wrapping
 set wrapmargin=4            " wrap lines when coming within n characters from side
 set linebreak               " set soft wrapping
@@ -34,6 +34,11 @@ set noerrorbells            " No beeps.
 set nojoinspaces            " Prevents inserting two spaces after punctuation on a join (J)
 
 set laststatus=2            " Set statusline to appear all the time (default to appear only when split windows)
+
+" Highlight cursorline unless, but not in insert mode
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+
 
 
 "-------------Coding-------------"
@@ -45,7 +50,7 @@ set smarttab                      " tab respects 'tabstop', 'shiftwidth', and 's
 set tabstop=8                     " the visible width of tabs
 set softtabstop=4                 " tabs width on on insert mode (tab or backspace)
 set shiftwidth=4                  " number of spaces to use for indent and unindent on normal mode ( <shift>< or > )
-set expandtab                   " insert spaces rather then tabs <Tab>
+set expandtab                     " insert spaces rather then tabs <Tab>
 
 " auto completions
 set completeopt+=longest          " append the longest option to the completeopt. The final stays: menu, preview, longest
@@ -57,6 +62,8 @@ set nofoldenable            " don't fold by default
 set foldlevel=1
 
 set cpoptions+=y                  " Add yank command can be redone with "."
+
+
 "----------------Buffer--------------
 set hidden
 " nnoremap <leader>d :call functions#DeleteFileAndCloseBuffer() " Its not working
@@ -79,55 +86,68 @@ set incsearch               " set incremental search, like modern browsers
 let mapleader = ','
 
 " Quick write Vim session for the project to be restored later
-map <F2> :mksession! .vimsession.vim <cr> 
-" Restore Vim session for the project 
-map <F3> :source .vimsession.vim <cr> 
+nnoremap <F2> :mksession! .vimsession.vim <cr>
+" Restore Vim session for the project
+nnoremap <F3> :source .vimsession.vim <cr>
 
 " remap esc
-imap jj <esc>
+inoremap jj <esc>
 
 " shortcut to save
-nmap <leader>s :w<cr>
+nnoremap <leader>s :w<cr>
 "
 " shortcut to delete buffer
-nmap <leader>w :bd<cr>
+nnoremap <leader>w :bd<cr>
 
 " switch between current and last buffer
-nmap <leader>. <c-^>
+nnoremap <leader>. <c-^>
 
 " Quickly go forward or backward to buffer
-" Quick note: for <C-h> to work into Iterm, I need to remap the <C-h> into Iterm, that was mapped to <BS> 
+" Quick note: for <C-h> to work into Iterm, I need to remap the <C-h> into Iterm, that was mapped to <BS>
 "     Source : https://github.com/neovim/neovim/issues/2048#issuecomment-98307896
-nmap <C-h> :bprevious<cr>
-nmap <C-l> :bnext<cr>
+nnoremap <C-h> :bprevious<cr>
+nnoremap <C-l> :bnext<cr>
 
-" Quickly navigate between windows using `Alt+{h,j,k,l}` no matter if they are displaying
-" a normal buffer or a terminal buffer in terminal mode.
-" Map to <TAB> is not working, fix it in a later time
-" :tnoremap <A-h> <C-\><C-n><C-w>h
-" :tnoremap <A-j> <C-\><C-n><C-w>j
-" :tnoremap <A-k> <C-\><C-n><C-w>k
-" :tnoremap <A-l> <C-\><C-n><C-w>l
-" :nnoremap <A-h> <C-w>h
-" :nnoremap <A-j> <C-w>j
-" :nnoremap <A-k> <C-w>k
-" :nnoremap <A-l> <C-w>l
-
-map <leader>ev :e! $MYVIMRC <cr>
+" Quick access to .vimrc file
+nnoremap <leader>ev :e! $MYVIMRC <cr>
 
 " Removes simple highlight
-nmap <Leader><space> :nohlsearch<cr>
+nnoremap <Leader><space> :nohlsearch<cr>
+
+" Quickly move current line
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
+" Quickly add empty lines
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+
+" Don't lose selection when shifting sidewards
+xnoremap <  <gv
+xnoremap >  >gv
+
+"/
+"/ Command line mapping
+"/
+" Remap input history to the smart arrow keys
+cnoremap <c-n>  <down>
+cnoremap <c-p>  <up>
+
+" remap to undo paste command into insert mode. In fact, it undo the changes since last <C-R> command.
+" See i_CTRL-G_u
+inoremap <C-R> <C-G>u<C-R>
+
 
 "/
 "/ Laravel Specific
 "/
 " Open specific laravel directories
-nnoremap <Leader>lr :e routes/web.php<cr>
-nmap <Leader><Leader>ls :e app/Http/Services<cr>
-nmap <Leader><Leader>lm :e app/Http/Models<cr>
-nmap <Leader><Leader>lc :e app/Http/Controllers<cr>
-nmap <Leader><Leader>lp :e app/Providers<cr>
-nmap <Leader><Leader>lcf :e config<cr>
+nnoremap <Leader><Leader>lr :e routes/web.php<cr>
+nnoremap <Leader><Leader>ls :e app/Http/Services<cr>
+nnoremap <Leader><Leader>lm :e app/Http/Models<cr>
+nnoremap <Leader><Leader>lc :e app/Http/Controllers<cr>
+nnoremap <Leader><Leader>lp :e app/Providers<cr>
+nnoremap <Leader><Leader>lcf :e config<cr>
 
 
 "/
@@ -135,15 +155,17 @@ nmap <Leader><Leader>lcf :e config<cr>
 "/
 " let @<index>=""
 
+
 "-------------Plugins--------------------"
 
 "/
 "/ NerdTree
 "/
 " Toogle NerdTree
-nmap <silent> <c-n>  :NERDTreeToggle<cr>
+nnoremap <silent> <c-n>  :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
-nmap <silent> <leader>y :NERDTreeFind<cr>
+nnoremap <silent> <leader>n :NERDTreeFind<cr>
+
 " Customize Arrow fonts
 let NERDTreeDirArrowExpandable = '▷'
 let NERDTreeDirArrowCollapsible = '▼'
@@ -158,10 +180,16 @@ nnoremap <Leader>] :TagbarOpenAutoClose<CR>
 
 
 "/
+"/ GitGutter
+"/
+let g:gitgutter_map_keys = 0  " Set up Gitgutter to not map any key
+
+
+"/
 "/ Airlines
 "/
-let g:airline#extensions#tabline#enabled = 1             " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t'         " Show just the filename
+let g:airline#extensions#tabline#enabled = 1                " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t'            " Show just the filename
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#right_sep = ' '
@@ -210,21 +238,45 @@ let g:indentLine_color_term = 237
 let g:indentLine_char = '┆'
 let g:indentLine_faster = 1
 
+
 "/
-"/ Ack
+"/ Vim Better Whitespace
+"/
+" Configure the backgroud color for trailing whitespaces
+highlight ExtraWhitespace ctermbg=236
+
+
+
+"/
+"/ Grepper
 "
-if executable('ag') " Configure Ack to use Ag (The Silver Search) (uses the .ignore to ignore files)
-  let g:ackprg = 'ag --vimgrep -i -S -U'
-endif
-nnoremap <Leader>f :Ack!<space>
+" Configure tools from grepper. By default grepper will use the first tool of the list
+"    ['ag', 'ack', 'grep', 'findstr', 'rg', 'pt', 'sift, 'git']
+"    Configured ag to use smartcase and to ignore VCS ignore files (.gitignore, .hgignore).
+"         But it still uses .ignore files to ignore files on search
+let g:grepper = {
+    \ 'next_tool': '<leader>f',
+    \ 'ag': {
+    \   'grepprg':    'ag --vimgrep -i -S -U',
+    \ }}
+let g:grepper.highlight = 1        " Highlight found matches.
+let g:grepper.simple_prompt = 1    " Only show the tool name in the prompt, without any of its arguments.
+
+" Shortcuts for Grepper
+nnoremap <leader>f :Grepper<cr>
+nnoremap <leader>* :Grepper -cword -noprompt<cr>
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
 
 "/
-"/ Greplace
-"/
-set grepprg=ag                                       " Use Ag (The Silver Search) for searching
-let g:grep_cmd_opts = '--line-numbers --noheading'   " Add linenumbers to output
-nnoremap <Leader>F :Gsearch<space>
-
+"/ Vim Qf ( Searching / Search and Replate )
+"
+let g:qf_mapping_ack_style = 1           " Enable Ack.vim-inspired mappings in location/quickfix windows:
+" Toggle the quickfix window. 
+nmap <leader>q <Plug>QfCtoggle
+" Toggle the current window's location window
+nmap <leader>l <Plug>QfLtoggle
 
 "/
 "/ Deoplete (autocomplete)
@@ -240,51 +292,56 @@ inoremap <silent><expr> <TAB>
 \ <SID>check_back_space() ? "\<TAB>" :
 \ deoplete#mappings#manual_complete()
 function! s:check_back_space() abort "{{{
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
 
 "/
 "/ UltiSnips
 "/
-let g:UltiSnipsExpandTrigger="<c-space>"         " Add key to trigger UltiSnips snippets. Can not use <tab> to not conflict
-                                             " with shortcut for deoplete
-                                             
+let g:UltiSnipsExpandTrigger="<c-space>"         " Add key to trigger UltiSnips snippets. Can not use <tab> to not conflict with shortcut for deoplete
+let g:UltiSnipsJumpForwardTrigger="<c-space>"    " Map forward jump trigger for ultisnips jumps
+
+
 "/
 "/ pdv PHP Documenter VIM
 "/
 let g:pdv_template_dir = $HOME ."/.config/nvim/plugins/pdv/templates_snip"    " The path to the pdv templates
 " Shortcut to add php docblocks
-nnoremap <leader>d :call pdv#DocumentWithSnip()<CR>                         
+nnoremap <leader>d :call pdv#DocumentWithSnip()<CR>
 
 
 "/
 "/ Vim PHP Namespace
 "/
+let g:php_namespace_sort_after_insert = 1                " Sort dependencies every time one is inserted
+"
 " Insert use statement at the top of the file
 "     new Response<-- cursor here or on the name; hit <leader>u now to insert the use statement
 function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
 endfunction
-autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
-
 " Expand the fully qualified classe name
 "     new Response<-- cursor here or on the name; hit <leader>ec now to insert the use statement
 function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
-autocmd FileType php inoremap <Leader>ec <Esc>:call IPhpExpandClass()<CR>
-autocmd FileType php noremap <Leader>ec :call PhpExpandClass()<CR>
 
-let g:php_namespace_sort_after_insert = 1                                   " Sort dependencies every time one is inserted
+" Created shortcuts for php namespace only on php files
+augroup php_namespace
+    autocmd!
+    autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+    autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+    autocmd FileType php inoremap <Leader>ec <Esc>:call IPhpExpandClass()<CR>
+    autocmd FileType php noremap <Leader>ec :call PhpExpandClass()<CR>
+    " Sort php use statements
+    autocmd FileType php inoremap <Leader>us <Esc>:call PhpSortUse()<CR>
+    autocmd FileType php noremap <Leader>us :call PhpSortUse()<CR>
+augroup END
 
-" Sort php use statements
-autocmd FileType php inoremap <Leader>us <Esc>:call PhpSortUse()<CR>
-autocmd FileType php noremap <Leader>us :call PhpSortUse()<CR>
 
 
 "/
@@ -305,28 +362,32 @@ autocmd FileType php noremap <Leader>us :call PhpSortUse()<CR>
 "/ Vim PHP CS Fixer
 "/
 let g:php_cs_fixer_rules = "@PSR2"        " set PSR2 rules to be used on cs fixer
-" Shortcuts to apply php-cs-fixer
-nnoremap <silent> <F8> :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent> <F9> :call PhpCsFixerFixFile()<CR>
+" Shortcuts to apply php-cs-fixer, and after update lint with Neomake
+nnoremap <silent> <F8> :call PhpCsFixerFixDirectory()<CR> :Neomake<CR>
+nnoremap <silent> <F9> :call PhpCsFixerFixFile()<CR> :Neomake<CR>
 
 "/
 "/ Neomake (assyn lint framework)
 "/
 " Run Neomake on the current file on every write:
-autocmd! BufWritePost * Neomake 
+" let g:neomake_open_list = 2       " open the location windows with the lin errors without move the cursor
+augroup neomake_lints
+    autocmd!
+    autocmd BufWritePost * Neomake
+augroup END
 
 " Note : For PHP, Neomake, by default, will run php -l, phpcs and phpmd, if available.
-let g:neomake_php_phpcs_args_standard="PSR2"        " set PSR2 rules to be used by phpcs when new make runs. 
+let g:neomake_php_phpcs_args_standard="PSR2"        " set PSR2 rules to be used by phpcs when new make runs.
 
 "/
 "/ Vim Test
 "/
 let test#strategy = "neovim"                      " Runs test commands with :terminal
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>ta :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tg :TestVisit<CR>
 
 
 
@@ -334,12 +395,15 @@ nmap <silent> <leader>tg :TestVisit<CR>
 
 " Automatically source the Vimrc file on save.
 augroup autosourcing
-	autocmd!
-	autocmd BufWritePost init.vim  source %
+    autocmd!
+    autocmd BufWritePost init.vim  source %
 augroup END
 
 " Regerate all ctags, asynchronously, when every buffer is saved
-autocmd! BufWritePost * call jobstart("ctags-update.sh")
+augroup ctags_management
+    autocmd!
+    autocmd BufWritePost * call jobstart("ctags-update.sh")
+augroup END
 "-------------Ctags----------------------"
 
 set tags+=tags       " set the ctag files
@@ -357,47 +421,96 @@ set tags+=tags       " set the ctag files
 " Use :registers to see all register list
 " Press <leader>s to save the current file (custom shortcut)
 " Press <leader>w to delete the current buffer (shortcut to :db)
-" In insert mode,press <c-o> to execute a single command on normal mode and go back automatically to insert mode
+" Use :wa to write all buffers
+" Use <c-v> to enter on visual block mode
+" Use vsplit/split +term  to open a windows with a terminal
 
 
-"/
-"/ Neomake
-"/
-" Neomake runs link and put the result into the curret windows associated list windows.
-" So to see all the lint errors, type :lopen
-"   Type <cr> to go to the error line in the target file
+
 "/
 "/ Coding
 "/
 " Use ga <base symbol to aline> (From vim-easy-align plugin)
 " Use < or > for identation (can be used on visual mode)
-"     >iB    Indent contents of current { } block
+"     >iB    Indent contents of current Block
 " Press <leader>u to add use statement to the top of the php file (custom shortcut from vim-php-namespace)
 " Press <leader>us to sort use statement for the current php file (custom shortcut from vim-php-namespace)
 " Press <leader>ec to expand the fully qualified php class name (custom shortcut from vim-php-namespace)
 "
 " Press <F8> to run php-cs-fixer into the current file
 " Press <F9> to run php-cs-fixer into the current directory
-"
+" Press <number>]e moves the current line <number> lines below, or <number>[e to move above
+" Press <number>]<space> to inserts 5 blank lines below  the current line or <number>[<space> to insert above 
+" Use motion b to reference to block:
+"     ab       copy a block ( equivalent to a( )
+"     aB       ident a Block ( equivalent to a{ )
 " Use "<x> to use the content at register <x>.
-"   Examples
-"     "ay$    to copy rest of line to register a
-"     "6p     to paste the content of register 6
+"     Examples
+"       "ay$    to copy rest of line to register a
+"       "6p     to paste the content of register 6
+"     Use + register to access system clipboard:
+"         Examples
+"             "+y<motion>   puts the content of the motion into the system clipboard.
 "
-
-" On COMMAND mode, commands for terminal shell can be applied, like:
-"     Press <C-p> or <C-n> to go backward and foward to executed commands history
-"     Press <C-f> to open a new window with the command history
-"     Press <C-b> to go to the beginning of the sentence
-"     Press <C-e> to go to the end of the sentence
-"     Press <C-h> to delete a char
-"     Press <C-w> to delete word
-"     Press <C-u> to delete all before cursor
-"     Press <C-c> to cancel the command and return to previous windows
-"     Press <C-u> to delete sentence
-"     Press <C-m> as alias to <cr>
+"         Pasting from this register usually produces better results than using the system paste (<c-v>)
+"         command in Insert mode
+"     Registers:
+"         Register 0: Last yank.
+"         Register 1: Last deletion.
+"         Register 2: Second last deletion.
+"         And so on. Think of registers 1-9 as a read-only queue with 9 elements.
 "
+" Motions 
+"  (     sentences backward.
+"  )     sentences forward.
+"  {     paragraphs backward.
+"  }     paragraphs forward.
+"
+"
+" On COMMAND mode:
+"     Press <c-p> or <C-n> to go backward and foward to history inputs (same as <down> and <up>)
+"     Press <c-f> to open a new window with the command history
+"     Press <c-b> to go to the beginning of the sentence
+"     Press <c-e> to go to the end of the sentence
+"     Press <c-h> to delete a char
+"     Press <c-w> to delete word
+"     Press <c-u> to delete all before cursor
+"     Press <c-c> to cancel the command and return to previous windows
+"     Press <c-u> to delete sentence
+"     Press <c-m> as alias to <cr>
+"     Press <c-r> <register> to search for the content of the <register>
+"     Press <c-r><c-w> to insert for the <cword> (word under the cursor)
+"     Press <c-r><c-a> to insert for the WORD under the cursor
+"     Press <c-r><c-f> to insert for the <cfile> (the file path under the cursor)
 "     Use % to reference to current fully qualified filename
+"
+" On Insert mode
+"     Press <c-o> to execute a single command on normal mode and go back automatically to insert mode
+"     Press <c-r><id> to paste the content of the register of <id>
+
+"/
+"/ Substitution
+"/
+" Use s command to substitution. <range>s/<pattern>/<string>/<flags>
+"     :%s/foo/bar/          On each line, replace the first occurrence of "foo" with "bar".
+"     :s/foo/bar/g          Find each occurrence of 'foo' (in the current line only), and replace it with 'bar'.
+"     :%s/foo/bar/gc        Change each 'foo' to 'bar', but ask for confirmation first.
+"     :%s/\<foo\>/bar/gc    Change only whole words exactly matching 'foo' to 'bar'; ask for confirmation.
+"
+"
+"/
+"/ Better Whitespace
+"/
+" Use :StripWhitespace to remove extra whitespaces on current buffer
+
+
+"/
+"/ Neomake
+"/
+" Neomake runs link and put the result into the curret windows associated location list windows.
+" So to see all the lint errors , type <leader>l or :lopen (open the location windows with the errors )
+"   See shortcuts for location windows on Vim-Qf plugin
+
 
 
 "/
@@ -411,20 +524,23 @@ set tags+=tags       " set the ctag files
 "/
 " Press <leader>t , in a test file, to test the current function (Run the last test function runned if it's not in a test file)
 " Press <leader>tf , in a test file, to test the current test file. (Run the last test file runned if it's not in a test file)
-" Press <leader>ta , in any place, to test all suite test 
+" Press <leader>ta , in any place, to test all suite test
 " Press <leader>tl , in any place, to run the last test command
 " Press <leader>tg , in any place, to open and go the the last test function runned ( even if a suite test or a file test was the last runned test commands)
 
 "/
-"/ Searching
+"/ Command Mode Searching
 "/
-" When searching, ( / ) use <C-r> <register> to search for the content of the <register>
+" Press * to immediately search for the work in cursor
+
 
 "/
 "/ Commentary
 "/
-" Press gcc to comment the current line
+" >Press <count>gcc to comment the current line or the count lines
+" Press gc<motion> to comment the lines the motion moves over (do not comment single or a bunch of word, only the entire line)
 " Press gc to comment all selection into visual mode
+" Press gcgc or gcu to uncomment adjacent comment lines (uncoment until it find an uncommented line, in either direction of the cursor)
 
 "/
 "/ Surrounding (Vim-Surround)
@@ -449,10 +565,10 @@ set tags+=tags       " set the ctag files
 " Press zz to center the line where cursor is located
 " Press - to open Vinager file manager
 " Press <leader>] to open Tagbar windows with current tags for the file
-" Press <C-n> to toogle NERDTree 
+" Press <C-n> to toogle NERDTree
 " Press  <C-i> and <C-o> jumps foward and backward to jumps
 " Press g, and g; to go foward and backward to edit points (change list is per file)
-" Press % to go to the item after or under the cursor. |inclusive| motion. Match itens can be ([{}])	
+" Press % to go to the item after or under the cursor. |inclusive| motion. Match itens can be ([{}])
 "
 
 
@@ -460,13 +576,14 @@ set tags+=tags       " set the ctag files
 " Press <leader>b to open buffer list  (custom shortcut from CtrlP)
 " Press <leader>. toggle between current and last buffer  (custom shortcut for <C-^>)
 " Press <C-l> and <C-h> to go foward and backward to the buffer list
+" Use :wa to save all buffers
 " Use :bufdo {command} to execute the {command} in every open buffer
 "   :bufdo bd    to delete all buffers
 "
 " " Marks
 " Press m<a letter> to set a mark in the current file e use `<letter> to go to the mark (mark works only per file)
-	"   example: mm
-	" can be used in combination to other commands: v`a (select until the mark)
+        "   example: mm
+        " can be used in combination to other commands: v`a (select until the mark)
 " Press m<capital letter> to set a mark in the current file e use `<capital letter> to go to the mark from any file
 " Use :marks to show all marks available (local marks and global marks(capital letters))
 " Notes : Marks leaves across sections (open and close vim, and the marks remains)
@@ -494,15 +611,15 @@ set tags+=tags       " set the ctag files
 "/
 "/ NERDTree
 "/
-" Press <C-n> to toogle NERDTree (custom shortcut)
-"     Press o to open or close a noden. If file, opens the file into current buffer
+" Press <leader>n to search the current file in NERDTree (custom shortcut)
+" Press <c-n> to toogle NERDTree (custom shortcut)
+"     Press o to open or close a node. If file, opens the file into current buffer
 "     Press s to open vsplit
 "     Press i to open vplit
 "     Press t to open in new tab
 "     Press q to close NerdTree windows
 "     Press a to toggle zoom NerdTree windows
 "     Press m to open a helpful menu with some helper methods, <ESC> to exit menu
-" Press <leader>m to open most used files list (custom shortcut)
 
 "/
 "/ Vinager (wrapper for netrw ot enhance it)
@@ -545,11 +662,13 @@ set tags+=tags       " set the ctag files
 "/ CtrlP
 "/
 " Press C-p to open CtrlP menu file explorer
+" Press <leader>m to open most used files list (custom shortcut)
+" Press <leader>b to open buffer list (custom shortcut)
 " Press C-c to close CtrlP menu file explorer
 " Press C-j or C-j to navigate during CtrlP explorer
 " Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
 " Press <c-f> and <c-b> to cycle between modes.
-" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab (c-t) or in a new split (c-v), or special program (c-x)
+" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab (c-t) or in a new vertical split (c-v), or in new a horizontal split (c-x)
 "     Use <c-o> to see a list options on how to open the current file
 " Press <c-d> to toggle between full-path search and filename only search.
 " Press <c-r> to toggle between the string mode and full regexp mode.
@@ -579,18 +698,64 @@ set tags+=tags       " set the ctag files
 " Use :Git mv % to rename the current file and the corresponding Vim buffer (equivalent to :Gmove, but does not update the buffer)
 
 "/
-"/ Ack (Searching)
+"/ Grepper (Searching)
 "/
-" Press <Leader>f to execute :Ack command to find for an expression
-" The Ack searches for regular expression, so if needs to find the string 'something()', need to type something\(\)
-" The second parameter is the file/directory to search. Example: to search only in the current file, use:
-"     :Ack needed %
+" Press <leader>f to execute :Grepper and enter in prompt to find for an expression
+"    Type <c-c> to cancel and exit prompt
+"    Type <c-p> <c-n> to go back and forward search expression history
+"    Type <tab> to switch to next grepper search tool (see g:grepper.tools)
+"    Type <c-f> to open |cmdline-window|. Use <c-c> to quit
+" Press <leader>* to search for the word in cursor without prompt
+" Press gs<motion> to search for the result of the motion
+"      gsi(
+" For search on command mode, use:
+"     :Grepper <flags>
+" Or the custom commands:
+"     :Grepper-query something
 "
-"    ?   to open help menu
-"    O   to open and close the quickfix windows
-"    o   to open (same as Enter)
-"    go  to preview file, open but maintain focus on ack.vim results
-"    q   to close the quick fix windows
+
+
+"/
+"/ Vim Qf ( Searching / Search and Replate )
+"/
+" Type <leader>q to toggle quickfix window
+" Type <leader>l to toggle location window
+" In quickfix/location windows, type:
+"    s - open entry in a new horizontal window
+"    v - open entry in a new vertical window
+"    t - open entry in a new tab
+"    o - open entry and come back
+"    O - open entry and close the location/quickfix window
+"    p - open entry in a preview window
+"
+"    Search and Replate:
+"
+"    :Keep       to keep only entries that containing the given argument (filename or in the description).
+"                Argument is not a regular expression pattern.
+"    :Reject     to reject all entries that containing the given argument (filename or in the description).
+"                Argument is not a regular expression pattern.
+"    :Restore    Restore the list to its original state
+"    :Doline    Execute an Ex command on every line in the current list.
+"                Aliased to the built-in `:cdo` and `:ldo` when applicable.
+"                Note : with subtitute command, do not use g flag or % range (for
+"                all file) because the search list already has a item on list
+"                for ocurrences on a file). If you use % or g, subistitution
+"                will fail on next list item executions because will not find
+"                the pattern, already changed by last command.
+"                    :Doline s/foo/bar
+"   :Doline     Execute an Ex command on every file in the current list.
+"                Aliased to the built-in `:cfdo` and `:lfdo` when applicable.
+"                Note :with subistitution command, note that the command will
+"                execute only once per file, so you must consider use % range
+"                or g flag to apply to all ocurrences.
+"                    :Dofile %s/foo/bar/g
+"                    :Dofile norm @q
+"    Hints : 
+"        :Reject <c-r><c-w> to reject all ocurrences containing  the <cword> (word under the cursor)
+"        :Reject <c-r><c-a> with the cursor under the file path to reject the current item on quicklist 
+"        :Keep <c-r><c-f> with the cursor under the file path to keep all ocurrences the file
+"
+" Note : Vim-Qf quit Vim/NeoVim if the last window is a location/quickfix window
 
 
 "/
@@ -603,8 +768,11 @@ set tags+=tags       " set the ctag files
 "/
 "/ UltiSnips ( integrated to Deoplete )
 "/
-" On Deoplete pop, selecte the snippet and type <c-space> to trigger
+" On Deoplete pop, select the snippet and type <c-space> to trigger
 " or just type the snippet name and type <c-space>
+"   type <c-space> again to go forward snippets jumps
+"   type <c-k> to go backward snippts jumpts
+" Type :UltiSnipsEdit to open the snippets file for the current filetype
 
 "/
 "/ pdv PHP Documenter VIM
@@ -624,3 +792,4 @@ set tags+=tags       " set the ctag files
 " - universal-ctags (for tagging files) - uses .ctagsignore to ignore files
 " - ryanoasis/nerd-fonts for fonts with devicons
 " - ggreer/the_silver_searcher (ag for code searching) - uses .ignore to ignore files
+"   here
