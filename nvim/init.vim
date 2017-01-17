@@ -50,6 +50,9 @@ hi vertsplit ctermfg=234 ctermbg=127 guibg=#A55989 guifg=bg
 " customize the Visual and Search mode highlights colors
 hi Visual ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
 hi Search ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
+"
+" disable foreground for Cursorline
+hi Cursorline ctermfg=none guifg=none 
 
 
 "-------------Coding-------------"
