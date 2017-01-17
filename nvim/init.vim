@@ -90,10 +90,10 @@ set incsearch               " set incremental search, like modern browsers
 " set a map leader for more key combos
 let mapleader = ','
 
-" Quick write Vim session for the project to be restored later
-nnoremap <F2> :mksession! .vimsession.vim <cr>
-" Restore Vim session for the project
-nnoremap <F3> :source .vimsession.vim <cr>
+" Quick write NeoVim session for the project to be restored later
+nnoremap <F2> :mksession! .neovimsession.vim <cr>
+" Restore NeoVim session for the project
+nnoremap <F3> :source .neovimsession.vim <cr>
 
 " shortcut for esc in insert mode
 inoremap jj <esc>
@@ -116,7 +116,7 @@ nnoremap <leader>. <c-^>
 nnoremap <C-h> :bprevious<cr>
 nnoremap <C-l> :bnext<cr>
 
-" Quick access to .vimrc file
+" Quick access to neovim config file
 nnoremap <leader>ev :e! $MYVIMRC <cr>
 
 " Removes simple highlight
@@ -407,7 +407,7 @@ nnoremap <silent> <leader>tg :TestVisit<CR>
 
 "-------------Auto-Commands--------------"
 
-" Automatically source the Vimrc file on save.
+" Automatically source the Neovim config file on save.
 augroup autosourcing
     autocmd!
     autocmd BufWritePost init.vim  source %
@@ -543,7 +543,7 @@ set tags+=tags       " set the ctag files
         " can be used in combination to other commands: v`a (select until the mark)
 " Press m<capital letter> to set a mark in the current file e use `<capital letter> to go to the mark from any file
 " Use :marks to show all marks available (local marks and global marks(capital letters))
-" Notes : Marks leaves across sections (open and close vim, and the marks remains)
+" Notes : Marks leaves across sections (open and close Neovim, and the marks remains)
 "
 " " Tags
 " Press <C-]> to navigate to the tag where cursor is located <ctags> or
@@ -596,7 +596,7 @@ set tags+=tags       " set the ctag files
 "/
 "/ Rename
 "/
-" Use :Rename to rename a file within Vim and on the disk automatically (Note: NERDTree needs to be refresh manually)
+" Use :Rename to rename a file within NeoVim and on the disk automatically (Note: NERDTree needs to be refresh manually)
 
 
 "/
@@ -797,7 +797,7 @@ set tags+=tags       " set the ctag files
 "        :Reject <c-r><c-a> with the cursor under the file path to reject the current item on quicklist 
 "        :Keep <c-r><c-f> with the cursor under the file path to keep all ocurrences the file
 "
-" Note : Vim-Qf quit Vim/NeoVim if the last window is a location/quickfix window
+" Note : Vim-Qf quit NeoVim if the last window is a location/quickfix window
 
 
 "/
