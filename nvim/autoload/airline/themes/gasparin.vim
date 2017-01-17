@@ -117,8 +117,3 @@ let g:airline#themes#gasparin#palette.replace.airline_warning =
 
 let g:airline#themes#gasparin#palette.replace_modified.airline_warning =
     \ g:airline#themes#gasparin#palette.normal.airline_warning
-
-
-" customize the vertical split line
-hi vertsplit ctermfg=234 ctermbg=127 guibg=#A55989 guifg=bg
-

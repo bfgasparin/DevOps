@@ -44,6 +44,11 @@ set laststatus=2            " Set statusline to appear all the time (default to 
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
+" customize the vertical split line
+hi vertsplit ctermfg=234 ctermbg=127 guibg=#A55989 guifg=bg
+
+" customize the Visual mode color
+hi Visual ctermfg=231 ctermbg=59 guifg=fg guibg=#605A79
 
 
 "-------------Coding-------------"
