@@ -4,10 +4,12 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
 endif
 
+
 "-------------visual-------------"
 
 syntax enable
 set encoding=utf8
+set t_Co=256                     " Explicitly tell vim that the terminal supports 256 colors"
 colorscheme atom-dark-256        " Set the colorscheme
 
 set cursorline                   " Highlight the cursor line
@@ -20,16 +22,13 @@ if (has("termguicolors"))
 endif
 
 " make comments and HTML attributes italic
-highlight Comment cterm=italic gui=italic
-highlight htmlArg cterm=italic gui=italic
-" Quick Note : for italic comments to work on Neovim, I need to update my terminfo
-" adding the following line:
-"     sitm=\E[3m, ritm=\E[23m,
-" Resource : https://github.com/neovim/neovim/issues/3461#issuecomment-268876998
-
+highlight Comment cterm=italic 
+highlight htmlArg cterm=italic
 set number                  " show line numbers
 " set relativenumber        " show relative line numbers
 
+" customize the vertical split line
+hi vertsplit ctermfg=234 ctermbg=192 guibg=#B4EC85 guifg=bg
 
 set wrap                    " turn on line wrapping
 set wrapmargin=4            " wrap lines when coming within n characters from side
@@ -95,7 +94,7 @@ nnoremap <F2> :mksession! .vimsession.vim <cr>
 " Restore Vim session for the project
 nnoremap <F3> :source .vimsession.vim <cr>
 
-" shortcut for esc in insert mode
+" remap esc
 inoremap jj <esc>
 
 " Improved match list command
@@ -111,8 +110,8 @@ nnoremap <leader>w :bd<cr>
 nnoremap <leader>. <c-^>
 
 " Quickly go forward or backward to buffer
-" Quick note: for <C-h> to work into Iterm, I need adjust my terminal's "kbs" terminfo entry
-"     Source : https://github.com/neovim/neovim/wiki/FAQ#my-ctrl-h-mapping-doesnt-work
+" Quick note: for <C-h> to work into Iterm, I need to remap the <C-h> into Iterm, that was mapped to <BS>
+"     Source : https://github.com/neovim/neovim/issues/2048#issuecomment-98307896
 nnoremap <C-h> :bprevious<cr>
 nnoremap <C-l> :bnext<cr>
 
@@ -145,7 +144,7 @@ cnoremap <c-p>  <up>
 "/
 "/ Terminal
 "/
-" remap esc in terminal mode
+" remap esc
 tnoremap <Esc> <C-\><C-n>
 tnoremap jj <C-\><C-n>
 
@@ -205,8 +204,7 @@ let g:gitgutter_map_keys = 0  " Set up Gitgutter to not map any key
 "/
 "/ Airlines
 "/
-
-let g:airline#extensions#tabline#enabled = 1                " Enable tabline 
+let g:airline#extensions#tabline#enabled = 1                " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'            " Show just the filename
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -217,7 +215,12 @@ let g:airline_left_sep = ' '
 let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
-let g:airline_theme='gasparin'
+let g:airline_theme='wombat'
+"
+" let g:airline#extensions#tabline#tab_min_count = 2
+" let g:airline#extensions#tabline#show_buffers = 0
+" let g:airline#extensions#tabline#show_splits = 1
+
 
 "/
 "/ CtrlP
@@ -425,9 +428,6 @@ set tags+=tags       " set the ctag files
 
 " ---------Notes and Tips---------------"
 
-" Run :CheckHealth to detect neovim problems
-
-
 "/
 "/ Commands
 "/
@@ -560,7 +560,8 @@ set tags+=tags       " set the ctag files
 
 
 " " Tabs
-" Tabs can be used to split collections of windows. For example: windows with buffers of test files and src files:
+" Tabs can be used to split collections of windows. For example: windows with
+" buffers of test files and src files:
 " Summary :
 "     A buffer is the in-memory text of a file.
 "     A window is a viewport on a buffer.
@@ -834,3 +835,4 @@ set tags+=tags       " set the ctag files
 " - universal-ctags (for tagging files) - uses .ctagsignore to ignore files
 " - ryanoasis/nerd-fonts for fonts with devicons
 " - ggreer/the_silver_searcher (ag for code searching) - uses .ignore to ignore files
+"   here

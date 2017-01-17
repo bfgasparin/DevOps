@@ -21,6 +21,7 @@ Plug 'mhinz/vim-grepper'                                      " code Searching/S
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " autocomplete feature
 " @todo Configure padawan-php to work without bug https://github.com/padawan-php/padawan.php/issues/71#issuecomment-270927679 
 " Plug 'padawan-php/deoplete-padawan'                         " asynchronous completion of PHP code using padawan project
+Plug 'vim-scripts/Rename'                                     " Rename a file on buffer and disk
 
 " PHP
 Plug 'StanAngeloff/php.vim'                                   " A PHP 5.6 syntax file

@@ -7,6 +7,13 @@ if m:
 `};
 endsnippet
 
+snippet class "class definition" b
+class ${1:name} ${2:extends BaseClass}
+{
+	${VISUAL}${3:// Body}
+}
+endsnippet
+
 
 snippet pf "Public function" b
 public function ${1:name}(${2:$param}) ${3:: void}
