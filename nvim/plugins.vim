@@ -41,4 +41,7 @@ Plug 'tpope/vim-vinegar' " alternative and minimalist file finder
 Plug 'majutsushi/tagbar' " show current file ctags in a diferent view
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug 'romainl/vim-qf'   " Collections of settings, commands and mappings to easily work with quickfix/location windows
+
+" helper
+Plug 'lifepillar/vim-cheat40'
 call plug#end()

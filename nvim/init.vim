@@ -40,6 +40,7 @@ set nojoinspaces            " Prevents inserting two spaces after punctuation on
 
 set laststatus=2            " Set statusline to appear all the time (default to appear only when split windows)
 
+
 " Highlight cursorline unless, but not in insert mode
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
@@ -53,7 +54,6 @@ hi Search ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
 "
 " disable foreground for Cursorline
 hi Cursorline ctermfg=none guifg=none 
-
 
 "-------------Coding-------------"
 
@@ -70,10 +70,10 @@ set expandtab                     " insert spaces rather then tabs <Tab>
 set completeopt+=longest          " append the longest option to the completeopt. The final stays: menu, preview, longest
 
 " code folding settings
-set foldmethod=syntax       " fold based on indent
+set foldmethod=syntax       " fold based on syntax language file
 set foldnestmax=10          " deepest fold is 10 levels
-set nofoldenable            " don't fold by default
-set foldlevel=1
+set nofoldenable          " don't fold by default
+set foldlevel=1             " close folders with level 2 or greater by default
 
 set cpoptions+=y                  " Add yank command can be redone with "."
 
@@ -93,6 +93,11 @@ set ignorecase              " case insensitive searching
 set smartcase               " case-sensitive if expresson contains a capital letter
 set hlsearch                " highlight search results
 set incsearch               " set incremental search, like modern browsers
+
+" ignored when expanding wildcards, completing file or
+" directory names, and influences the result of expand(), glob() and
+" globpath()
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store 
 
 "------------Mapping---------------------"
 
@@ -156,7 +161,6 @@ cnoremap <c-p>  <up>
 "/
 " remap esc in terminal mode
 tnoremap <Esc> <C-\><C-n>
-tnoremap jj <C-\><C-n>
 
 
 " remap to undo paste command into insert mode. In fact, it undo the changes since last <C-R> command.
@@ -175,7 +179,6 @@ nnoremap <Leader><Leader>lc :e app/Http/Controllers<cr>
 nnoremap <Leader><Leader>lp :e app/Providers<cr>
 nnoremap <Leader><Leader>lcf :e config<cr>
 
-
 "/
 "/ Custom macros
 "/
@@ -183,6 +186,12 @@ nnoremap <Leader><Leader>lcf :e config<cr>
 
 
 "-------------Plugins--------------------"
+
+"/
+"/ Vim Cheat40
+"/
+let g:cheat40_use_default = 0     " disable default cheat40. Uses the cheat at ~/.config/nvim/
+
 
 "/
 "/ NerdTree
@@ -236,8 +245,30 @@ nnoremap <leader>b :CtrlPBuffer<CR>
 " Open most recently used files
 nnoremap <Leader>m :CtrlPMRUFiles<CR>
 
-let g:ctrlp_mruf_relative = 1 "Show only MRU files in the working directory.
-let g:ctrlp_custom_ignore = 'node_modules\DS_Store\tags\|git'
+let g:ctrlp_mruf_relative = 1                                 " Show only MRU files in the working directory.
+
+" Configure CtrlP to use Ag (Silver Search)
+if executable('ag')
+  " Configured ag to use smartcase and ignore VCS ignore files (.gitignore and .hgignore)
+  " Note : when using custom command, ctrlP no more consider 
+  " wildignore and g:ctrlp_custom_ignore variables
+  let g:ctrlp_user_command = 'ag -l --nocolor -S -i -U -g "" %s'
+  
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+let g:ctrlp_show_hidden = 0                                   " Do not include dotfiles
+let g:ctrlp_mruf_exclude = $HOME.'/.config/nvim/*'            " Do not remember config files in mru
+let g:ctrlp_open_new_file = 'r'                               " Create new files in the current window
+" let g:ctrlp_extensions = ['autoignore']                       " Enable autoignore extension (read .ctrlpignore)
+let g:ctrlp_working_path_mode = 'ra'                          " Set up local working directory. 
+"                                                               Uses a if r could not found root dir
+"                                                                  a - the directory of the current file, unless it is a 
+"                                                                      subdirectory of the cwd
+"                                                                  r - the nearest ancestor of the current file that contains 
+"                                                                      one of these directories or files:
+"                                                                      .git .hg .svn .bzr _darcs
+
 
 
 "/
@@ -274,19 +305,21 @@ highlight ExtraWhitespace ctermbg=236 guibg=#282E33
 "
 " Configure tools from grepper. By default grepper will use the first tool of the list
 "    ['ag', 'ack', 'grep', 'findstr', 'rg', 'pt', 'sift, 'git']
-"    Configured ag to use smartcase and to ignore VCS ignore files (.gitignore, .hgignore).
-"         But it still uses .ignore files to ignore files on search
+"    Configured ag to use smartcase. By default, ag uses VCS ignore files (.gitignore and .hgignore)
+"    But it still uses .ignore files to ignore files on search
 let g:grepper = {
     \ 'next_tool': '<leader>f',
     \ 'ag': {
-    \   'grepprg':    'ag --vimgrep -i -S -U',
+    \   'grepprg':    'ag --vimgrep -i -S',
     \ }}
 let g:grepper.highlight = 1        " Highlight found matches.
 let g:grepper.simple_prompt = 1    " Only show the tool name in the prompt, without any of its arguments.
 
 " Shortcuts for Grepper
 nnoremap <leader>f :Grepper<cr>
-nnoremap <leader>F :Grepper -buffer<cr>
+" A map to ignore and to ignore VCS ignore files (.gitignore, .hgignore) on search
+nnoremap <leader>F :Grepper-tool ag -grepprg ag --vimgrep -i -S -U<cr>
+nnoremap <leader>% :Grepper -buffer<cr>
 nnoremap <leader>* :Grepper -cword -noprompt<cr>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
@@ -332,8 +365,10 @@ let g:UltiSnipsJumpForwardTrigger="<c-space>"    " Map forward jump trigger for 
 "/
 let g:pdv_template_dir = $HOME ."/.config/nvim/plugins/pdv/templates_snip"    " The path to the pdv templates
 " Shortcut to add php docblocks
-nnoremap <leader>d :call pdv#DocumentWithSnip()<CR>
-
+augroup php_docblocks
+    autocmd!
+    autocmd FileType php nnoremap <buffer> <leader>d :call pdv#DocumentWithSnip()<CR>
+augroup END
 
 "/
 "/ Vim PHP Namespace
@@ -356,13 +391,13 @@ endfunction
 " Created shortcuts for php namespace only on php files
 augroup php_namespace
     autocmd!
-    autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
-    autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
-    autocmd FileType php inoremap <Leader>ec <Esc>:call IPhpExpandClass()<CR>
-    autocmd FileType php noremap <Leader>ec :call PhpExpandClass()<CR>
+    autocmd FileType php inoremap <buffer> <Leader>uu <Esc>:call IPhpInsertUse()<CR>
+    autocmd FileType php noremap <buffer> <Leader>uu :call PhpInsertUse()<CR>
+    autocmd FileType php inoremap <buffer> <Leader>ec <Esc>:call IPhpExpandClass()<CR>
+    autocmd FileType php noremap <buffer> <Leader>ec :call PhpExpandClass()<CR>
     " Sort php use statements
-    autocmd FileType php inoremap <Leader>us <Esc>:call PhpSortUse()<CR>
-    autocmd FileType php noremap <Leader>us :call PhpSortUse()<CR>
+    autocmd FileType php inoremap <buffer> <Leader>us <Esc>:call PhpSortUse()<CR>
+    autocmd FileType php noremap <buffer> <Leader>us :call PhpSortUse()<CR>
 augroup END
 
 
@@ -386,8 +421,11 @@ augroup END
 "/
 let g:php_cs_fixer_rules = "@PSR2"        " set PSR2 rules to be used on cs fixer
 " Shortcuts to apply php-cs-fixer, and after update lint with Neomake
-nnoremap <silent> <F8> :call PhpCsFixerFixDirectory()<CR> :Neomake<CR>
-nnoremap <silent> <F9> :call PhpCsFixerFixFile()<CR> :Neomake<CR>
+augroup php_mappings
+    autocmd!
+    autocmd FileType php nnoremap <buffer> <silent> <F8> :call PhpCsFixerFixDirectory()<CR> :Neomake<CR>
+    autocmd FileType php nnoremap <buffer> <silent> <F9> :call PhpCsFixerFixFile()<CR> :Neomake<CR> 
+augroup END
 
 "/
 "/ Neomake (assyn lint framework)
@@ -434,175 +472,12 @@ set tags+=tags       " set the ctag files
 
 " ---------Notes and Tips---------------"
 
-" Run :CheckHealth to detect neovim problems
-
-
-"/
-"/ Commands
-"/
-" Type @: to repead the last comand-line mode command. Use @@ for further repeats
-" Type f1 to open plugins help menu
-" Press <leader><space> to clear simple highlights (custom shortcut)
-" Use :registers to see all register list
-" Press <leader>s to save the current file (custom shortcut)
-" Press <leader>w to delete the current buffer (shortcut to :db)
-" Use :wa to write all buffers
-" Use <c-v> to enter on visual block mode
-
-"/
-"/ Terminal emulator
-"/
-" Type :terminal <cmd> to create a new terminal buffer executing the optinal <cmd> command
-" Use vs/sp +term  to open a windows with a terminal buffer
-" Use vs/sp +term  to open a windows with a terminal buffer
-" Type :!! to repeat the last terminal command
-" On terminal window: 
-"     Press <esc> or jj to go back to normal mode
-"     Press i to enter insert mode
-
-
-
-"/
-"/ Coding
-"/
-" Use ga <base symbol to aline> (From vim-easy-align plugin)
-" Use < or > for identation (can be used on visual mode)
-"     >iB    Indent contents of current Block
-" Press <leader>u to add use statement to the top of the php file (custom shortcut from vim-php-namespace)
-" Press <leader>us to sort use statement for the current php file (custom shortcut from vim-php-namespace)
-" Press <leader>ec to expand the fully qualified php class name (custom shortcut from vim-php-namespace)
+" Type <leader>? to open a cheat sheet menu
 "
-" Press <F8> to run php-cs-fixer into the current file
-" Press <F9> to run php-cs-fixer into the current directory
-" Press <number>]e moves the current line <number> lines below, or <number>[e to move above
-" Press <number>]<space> to inserts 5 blank lines below  the current line or <number>[<space> to insert above 
-" Use motion b to reference to block:
-"     ab       copy a block ( equivalent to a( )
-"     aB       ident a Block ( equivalent to a{ )
-" Use "<x> to use the content at register <x>.
-"     Examples
-"       "ay$    to copy rest of line to register a
-"       "6p     to paste the content of register 6
-"     Use + register to access system clipboard:
-"         Examples
-"             "+y<motion>   puts the content of the motion into the system clipboard.
-"
-"         Pasting from this register usually produces better results than using the system paste (<c-v>)
-"         command in Insert mode
-"     Registers :
-"         Register 0: Last yank.
-"         Register 1: Last deletion.
-"         Register 2: Second last deletion.
-"         And so on. Think of registers 1-9 as a read-only queue with 9 elements.
-"         Register % contains the name of the current file
-"
-" Motions 
-"  (     sentences backward.
-"  )     sentences forward.
-"  {     paragraphs backward.
-"  }     paragraphs forward.
-"
-"
-" On COMMAND mode:
-"     Press <c-p> or <C-n> to go backward and foward to history inputs (same as <down> and <up>)
-"     Press <c-f> to open a new window with the command history
-"     Press <c-b> to go to the beginning of the sentence
-"     Press <c-e> to go to the end of the sentence
-"     Press <c-h> to delete a char
-"     Press <c-w> to delete word
-"     Press <c-u> to delete all before cursor
-"     Press <c-c> to cancel the command and return to previous windows
-"     Press <c-u> to delete sentence
-"     Press <c-m> as alias to <cr>
-"     Press <c-r> <register> to search for the content of the <register>
-"     Press <c-r><c-w> to insert for the <cword> (word under the cursor)
-"     Press <c-r><c-a> to insert for the WORD under the cursor
-"     Press <c-r><c-f> to insert for the <cfile> (the file path under the cursor)
-"     Use % to reference to current fully qualified filename
-"
-" On Insert mode
-"     Press <c-o> to execute a single command on normal mode and go back automatically to insert mode
-"     Press <c-r><id> to paste the content of the register of <id>
-
-"/
-"/ Navigation
-"/
-" Press zz to center the line where cursor is located
-" Press - to open Vinager file manager
-" Press <c-\> to open Tagbar windows with current tags for the file
-" Press <C-n> to toogle NERDTree
-" Press  <C-i> and <C-o> jumps foward and backward to jumps
-" Press g, and g; to go foward and backward to edit points (change list is per file)
-" Press % to go to the item after or under the cursor. |inclusive| motion. Match itens can be ([{}])
-" Press [I to display all lines that contain the keyword under the cursor on current filenames
-"
-
-
-" " Buffers
-" Press <leader>b to open buffer list  (custom shortcut from CtrlP)
-" Press <leader>. toggle between current and last buffer  (custom shortcut for <C-^>)
-" Press <C-l> and <C-h> to go foward and backward to the buffer list
-" Use :wa to save all buffers
-" Use :bufdo {command} to execute the {command} in every open buffer
-"   :bufdo bd    to delete all buffers
-"
-" " Marks
-" Press m<a letter> to set a mark in the current file e use `<letter> to go to the mark (mark works only per file)
-        "   example: mm
-        " can be used in combination to other commands: v`a (select until the mark)
-" Press m<capital letter> to set a mark in the current file e use `<capital letter> to go to the mark from any file
-" Use :marks to show all marks available (local marks and global marks(capital letters))
-" Notes : Marks leaves across sections (open and close Neovim, and the marks remains)
-"
-" " Tags
-" Press <C-]> to navigate to the tag where cursor is located <ctags> or
-" :tags <text>  to go the first ocurrenct of <text> on ctags file
-" Press :tselect or g] to open the list of tags
-"     :tn to go to the next occurence
-"     :tp to go to the prevous occurence
-"     :pop or Use <C-t> to go back through the ctags queue
-
-" " Windows
-"
-" Use :vs to open a new vertical window
-" Use :sp to open an new horizontal window
-
-
-" " Tabs
-" Tabs can be used to split collections of windows. For example: windows with buffers of test files and src files:
-" Summary :
-"     A buffer is the in-memory text of a file.
-"     A window is a viewport on a buffer.
-"     A tab page is a collection of windows.
-"
-" Press gt or :tagnext to go to the next tab page. Or use <x>tb/:tagnext to go to the x tab page
-" Press gT or :tagprevious to go to the previous tab page.
-
-"/
-"/ Command Mode Searching
-"/
-" Press * to immediately search for the work in cursor
+" @todo migrate remaining commands to cheat40 plugin.
 
 
 
-"/
-"/ Substitution
-"/
-" Use s command to substitution. <range>s/<pattern>/<string>/<flags>
-"     :%s/foo/bar/          On each line, replace the first occurrence of "foo" with "bar".
-"     :s/foo/bar/g          Find each occurrence of 'foo' (in the current line only), and replace it with 'bar'.
-"     :%s/foo/bar/gc        Change each 'foo' to 'bar', but ask for confirmation first.
-"     :%s/\<foo\>/bar/gc    Change only whole words exactly matching 'foo' to 'bar'; ask for confirmation.
-"
-
-
-"/
-"/ Better Whitespace
-"/
-" Use :StripWhitespace to remove extra whitespaces on current buffer
-
-
-"/
 "/ Rename
 "/
 " Use :Rename to rename a file within NeoVim and on the disk automatically (Note: NERDTree needs to be refresh manually)
@@ -671,58 +546,6 @@ set tags+=tags       " set the ctag files
 "     Press a to toggle zoom NerdTree windows
 "     Press m to open a helpful menu with some helper methods, <ESC> to exit menu
 
-"/
-"/ Vinager (wrapper for netrw ot enhance it)
-"/
-" Press - to open Vinager file manager
-"     Type f1 to show helper
-"     Press d to create a new directory
-"     Press D to attempt to delete file/directory
-"     Press o to enter the file/directory under the cursor in a new browser window.  A horizontal split is used.
-"     Press v to enter the file/directory under the cursor in a new browser window.  A vertical split is used.
-"     Press i to cycle between thin, long, wide, and tree listings
-"     Press p to preview the file (open a preview viewport)
-"     Press R to rename the file/directory
-"     Press % to create a new file in the current directory
-
-
-"/
-"/ Tagbar
-"/
-" Press <c-\> to open tagbar windows with current tags for the file
-"     Press p to preview the tag into the file
-"     Press <cr> to select tag and close the tagbar windows
-"     Press q to close tagbar windows
-
-
-"/
-"/ Spliting
-"/
-" Press <C-w>| to expand vertically
-" Press <C-w>_ to expand horizontally
-" Press <C-w>= to back to default splitings
-" Use <C-w>+ or <C-w>- to resize horizontally
-" Use <C-w>< or <C-w>> to resize vertically
-" Use <C-w>r or <C-w>r to rotate the vieports
-" Use <C-w>o to close all splits and left current buffer full screen
-" Press :vsp to split vertically
-" Press :sp  to split horizontally
-
-"/
-"/ CtrlP
-"/
-" Press C-p to open CtrlP menu file explorer
-" Press <leader>m to open most used files list (custom shortcut)
-" Press <leader>b to open buffer list (custom shortcut)
-" Press C-c to close CtrlP menu file explorer
-" Press C-j or C-j to navigate during CtrlP explorer
-" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
-" Press <c-f> and <c-b> to cycle between modes.
-" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab (c-t) or in a new vertical split (c-v), or in new a horizontal split (c-x)
-"     Use <c-o> to see a list options on how to open the current file
-" Press <c-d> to toggle between full-path search and filename only search.
-" Press <c-r> to toggle between the string mode and full regexp mode.
-" Use <c-y> to create a new file and its parent directories.
 
 "/
 "/ Fugitive (Git)
@@ -756,7 +579,8 @@ set tags+=tags       " set the ctag files
 "    Type <tab> to switch to next grepper search tool (see g:grepper.tools)
 "    Type <c-f> to open |cmdline-window|. Use <c-c> to quit
 " Press <leader>* to search for the word in cursor without prompt
-" Press <leader>F to execute :Grepper -bufer and enter in prompt to find for an expression in the current buffer
+" Press <leader>% to execute :Grepper -buffer and enter in prompt to find for an expression in the current buffer
+" Press <leader>F to make grepper ignores VCS ignore files 
 " Press gs<motion> to search for the result of the motion
 "      gsi(
 " For search on command mode, use:
@@ -825,11 +649,13 @@ set tags+=tags       " set the ctag files
 "   type <c-k> to go backward snippts jumpts
 " Type :UltiSnipsEdit to open the snippets file for the current filetype
 
-"/
-"/ pdv PHP Documenter VIM
-"/
-" Press <leader>d into a line of a function to put the docblocks that function
 " --------- Helpers ---------------"
+
+"/
+"/ Cheat sheet
+"/
+" ~/.config/nvim/cheat40.txt
+
 
 "/
 "/ Helper scripts
