@@ -97,7 +97,12 @@ set incsearch               " set incremental search, like modern browsers
 " ignored when expanding wildcards, completing file or
 " directory names, and influences the result of expand(), glob() and
 " globpath()
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store 
+" Th itens with */ at the beginning is required by CtrlP wildignore support
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/.ctagsignore,*/.ignore,*/tags,*/.neovimsession,*/.vim,*/.php_cs.cache,.git/*,.DS_Store,.hg,.svn,.ctagsignore,.ignore,tags,.neovimsession.vim,.php_cs.cache
+
+"------------Mapping---------------------"
+let g:netrw_hide=1                  " Hide files from g:netrw_list_hide by default
+
 
 "------------Mapping---------------------"
 
@@ -114,6 +119,13 @@ inoremap jj <esc>
 
 " Improved match list command
 noremap [I [I:let nr = input("Type the number and \<Enter\>: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+" Break line in insert mode
+nnoremap <CR> i<cr><esc>
+" " Restore <CR> mapping in quickfix and location windows
+augroup cr_mapping
+  autocmd BufReadPost quickfix,location nnoremap <buffer> <CR> <CR>
+augroup END
 
 " shortcut to save
 nnoremap <leader>s :w<cr>
@@ -204,7 +216,7 @@ nnoremap <silent> <leader>n :NERDTreeFind<cr>
 " Customize Arrow fonts
 let NERDTreeDirArrowExpandable = '▷'
 let NERDTreeDirArrowCollapsible = '▼'
-" Quickly go forward or back Netrw in order to make Vinager Plugin to work
+" Open Netrw instead NERDTree when use :e <dir> command
 let NERDTreeHijackNetrw = 0
 
 "/
@@ -312,15 +324,16 @@ let g:grepper = {
     \ 'ag': {
     \   'grepprg':    'ag --vimgrep -i -S',
     \ }}
-let g:grepper.highlight = 1        " Highlight found matches.
+let g:grepper.highlight = 1          " Highlight found matches.
 let g:grepper.simple_prompt = 1    " Only show the tool name in the prompt, without any of its arguments.
+let g:grepper.dir = 'repo,cwd'       " Grep on repository, and current working directory if repo fails
 
 " Shortcuts for Grepper
 nnoremap <leader>f :Grepper<cr>
-" A map to ignore and to ignore VCS ignore files (.gitignore, .hgignore) on search
-nnoremap <leader>F :Grepper-tool ag -grepprg ag --vimgrep -i -S -U<cr>
+" A map to ignore VCS ignore files (.gitignore, .hgignore) on search
+nnoremap <leader>F :Grepper -tool ag -grepprg ag --vimgrep -i -S -U<cr>
 nnoremap <leader>% :Grepper -buffer<cr>
-nnoremap <leader>* :Grepper -cword -noprompt<cr>
+nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
@@ -545,6 +558,7 @@ set tags+=tags       " set the ctag files
 "     Press q to close NerdTree windows
 "     Press a to toggle zoom NerdTree windows
 "     Press m to open a helpful menu with some helper methods, <ESC> to exit menu
+"     Press I to toggle hidden file
 
 
 "/

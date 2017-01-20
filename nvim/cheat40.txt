@@ -225,6 +225,7 @@ Unindent line            «C-d»         I
 # >iB  Indent contents of this Block
 }}}
 Join with next line      J             N
+Break line before cursor «CR»          N
 Ditto, preserve spaces   gJ            N
 Run macro for each line  :norm @‹r›    V
 Increment number         ‹n›«C-a»     *N
@@ -493,7 +494,14 @@ Rename file/directory    R            *N
 Delete file/directory    D            *N
 Refresh file list        «C-l»         N
 File info                qf           *N
-Toggle hidden files      a             N
+Toggle files display     a             N
+# - normal
+# - hidden
+# - normal and hidden
+# (hidden files are
+# defined by
+# g:netrw_list_hide)
+Toggle dot-files         gh            N
 Switch file list format  i             N
 # thin, long, wide
 }}}
