@@ -98,9 +98,9 @@ set incsearch               " set incremental search, like modern browsers
 " directory names, and influences the result of expand(), glob() and
 " globpath()
 " Th itens with */ at the beginning is required by CtrlP wildignore support
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/.ctagsignore,*/.ignore,*/tags,*/.neovimsession,*/.vim,*/.php_cs.cache,.git/*,.DS_Store,.hg,.svn,.ctagsignore,.ignore,tags,.neovimsession.vim,.php_cs.cache
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/.ctagsignore,*/.ignore,*/tags,*/.neovimsession,*/.vim,*/.php_cs.cache,*/.padawan/*,.git/*,.DS_Store,.hg,.svn,.ctagsignore,.ignore,tags,.neovimsession.vim,.php_cs.cache,.padawan/*
 
-"------------Mapping---------------------"
+"------------Netrw-----------------------"
 let g:netrw_hide=1                  " Hide files from g:netrw_list_hide by default
 
 
@@ -273,11 +273,12 @@ let g:ctrlp_show_hidden = 0                                   " Do not include d
 let g:ctrlp_mruf_exclude = $HOME.'/.config/nvim/*'            " Do not remember config files in mru
 let g:ctrlp_open_new_file = 'r'                               " Create new files in the current window
 " let g:ctrlp_extensions = ['autoignore']                       " Enable autoignore extension (read .ctrlpignore)
-let g:ctrlp_working_path_mode = 'ra'                          " Set up local working directory. 
+let g:ctrlp_working_path_mode = 'ra'                          " Set up local project as working path.
+                                                              
 "                                                               Uses a if r could not found root dir
-"                                                                  a - the directory of the current file, unless it is a 
+"                                                                  a - the directory of the current file, unless it is a
 "                                                                      subdirectory of the cwd
-"                                                                  r - the nearest ancestor of the current file that contains 
+"                                                                  r - the nearest ancestor of the current file that contains
 "                                                                      one of these directories or files:
 "                                                                      .git .hg .svn .bzr _darcs
 

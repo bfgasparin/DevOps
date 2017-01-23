@@ -574,7 +574,8 @@ About {{{3
 Add use statement to the  «Ldr»uu      N
 top of the file
 Sort use statement        «Ldr»us      N
-Sort use statement        «Ldr»ec      N
+Expand full qualified     «Ldr»ec      N
+class name        
 }}}
 
 Vim PHP CS Fixer {{{2
