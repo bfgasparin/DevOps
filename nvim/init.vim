@@ -650,6 +650,8 @@ set tags+=tags       " set the ctag files
 "/
 " ~/bin/ctags-update.sh
 " phpmd-rulesets.xml
+" .ctagsignore
+" .ignore
 
 
 "/

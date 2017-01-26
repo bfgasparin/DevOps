@@ -19,10 +19,10 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'tpope/vim-abolish'                                      " easily search for, substitute, and abbreviate multiple variants of a word (snakeCase, camelCase, ...)
  Plug 'mhinz/vim-grepper'                                      " code Searching/Search and Replace  tool (With Neovim Async support)
  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " autocomplete feature
- " @todo Configure padawan-php to work without bug https://github.com/padawan-php/padawan.php/issues/71#issuecomment-270927679 
+ " @todo Configure padawan-php to work without bug https://github.com/padawan-php/padawan.php/issues/71#issuecomment-270927679
  " Plug 'padawan-php/deoplete-padawan'                         " asynchronous completion of PHP code using padawan project
  Plug 'vim-scripts/Rename'                                     " Rename a file on buffer and disk
-
+ Plug 'tpope/vim-repeat'                                       " Enable repeating plugin maps with .
 " " PHP
  Plug 'StanAngeloff/php.vim'                                   " A PHP 5.6 syntax file
  Plug 'arnaud-lb/vim-php-namespace'                            " add use statement and expand fully qualified php classes
@@ -30,7 +30,7 @@ call plug#begin('~/.config/nvim/plugged')
 
  " Languages (General)
  Plug 'janko-m/vim-test'                                       " Add support for running tests easily and fast
- Plug 'SirVer/ultisnips'                                       " Add snippet support 
+ Plug 'SirVer/ultisnips'                                       " Add snippet support
  Plug 'tobyS/vmustache'                                        " Template system engine (required by tobyS/pdv)
  Plug 'tobyS/pdv'                                              " to generate PHP docblock
  Plug 'neomake/neomake'                                        " Add lint support using async Neovim job control
