@@ -1,0 +1,7 @@
+.git
+.padawan
+.phpmd-rulesets.xml
+.ignore
+.neovimsession.vim
+.php_cs.cache
+vendor/phpunit/php-code-coverage/src/Report
