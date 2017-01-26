@@ -53,7 +53,7 @@ hi Visual ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
 hi Search ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
 "
 " disable foreground for Cursorline
-hi Cursorline ctermfg=none guifg=none
+hi Cursorline ctermfg=none guifg=none 
 
 "-------------Coding-------------"
 
@@ -160,17 +160,6 @@ nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 xnoremap <  <gv
 xnoremap >  >gv
 
-" shortcut for copy/paste to system clipboard
-nnoremap <leader>y "*y
-nnoremap <leader>Y "*Y
-nnoremap <leader>p "*p
-nnoremap <leader>P "*P
-xnoremap <leader>y "*y
-xnoremap <leader>Y "*Y
-xnoremap <leader>p "*p
-xnoremap <leader>P "*P
-
-
 "/
 "/ Command line mapping
 "/
@@ -247,7 +236,7 @@ let g:gitgutter_map_keys = 0  " Set up Gitgutter to not map any key
 "/ Airlines
 "/
 
-let g:airline#extensions#tabline#enabled = 1                " Enable tabline
+let g:airline#extensions#tabline#enabled = 1                " Enable tabline 
 let g:airline#extensions#tabline#fnamemod = ':t'            " Show just the filename
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -273,10 +262,10 @@ let g:ctrlp_mruf_relative = 1                                 " Show only MRU fi
 " Configure CtrlP to use Ag (Silver Search)
 if executable('ag')
   " Configured ag to use smartcase and ignore VCS ignore files (.gitignore and .hgignore)
-  " Note : when using custom command, ctrlP no more consider
+  " Note : when using custom command, ctrlP no more consider 
   " wildignore and g:ctrlp_custom_ignore variables
   let g:ctrlp_user_command = 'ag -l --nocolor -S -i -U -g "" %s'
-
+  
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
@@ -285,7 +274,7 @@ let g:ctrlp_mruf_exclude = $HOME.'/.config/nvim/*'            " Do not remember 
 let g:ctrlp_open_new_file = 'r'                               " Create new files in the current window
 " let g:ctrlp_extensions = ['autoignore']                       " Enable autoignore extension (read .ctrlpignore)
 let g:ctrlp_working_path_mode = 'ra'                          " Set up local project as working path.
-
+                                                              
 "                                                               Uses a if r could not found root dir
 "                                                                  a - the directory of the current file, unless it is a
 "                                                                      subdirectory of the cwd
@@ -321,11 +310,8 @@ let g:indentLine_faster = 1
 "/
 " Configure the backgroud color for trailing whitespaces
 highlight ExtraWhitespace ctermbg=236 guibg=#282E33
-" removes trailing whitespaces when saving buffer
-augroup clear_trailing_whitespace
-    autocmd!
-    autocmd BufEnter * EnableStripWhitespaceOnSave
-augroup END
+
+
 
 "/
 "/ Grepper
@@ -357,7 +343,7 @@ xmap gs <plug>(GrepperOperator)
 "/ Vim Qf ( Searching / Search and Replate )
 "
 let g:qf_mapping_ack_style = 1           " Enable Ack.vim-inspired mappings in location/quickfix windows:
-" Toggle the quickfix window.
+" Toggle the quickfix window. 
 nmap <leader>q <Plug>QfCtoggle
 " Toggle the current window's location window
 nmap <leader>l <Plug>QfLtoggle
@@ -452,19 +438,14 @@ let g:php_cs_fixer_rules = "@PSR2"        " set PSR2 rules to be used on cs fixe
 augroup php_mappings
     autocmd!
     autocmd FileType php nnoremap <buffer> <silent> <F8> :call PhpCsFixerFixDirectory()<CR> :Neomake<CR>
-    autocmd FileType php nnoremap <buffer> <silent> <F9> :call PhpCsFixerFixFile()<CR> :Neomake<CR>
+    autocmd FileType php nnoremap <buffer> <silent> <F9> :call PhpCsFixerFixFile()<CR> :Neomake<CR> 
 augroup END
 
 "/
 "/ Neomake (assyn lint framework)
 "/
-" let g:neomake_open_list = 2       " open the location windows with the lin errors without move the cursor
-let g:neomake_php_phpmd_maker = {
-    \ 'args': ['%:p', 'text', 'phpmd-rulesets.xml'],
-    \ 'errorformat': '%E%f:%l%\s%m'
-    \ }
-"
 " Run Neomake on the current file on every write:
+" let g:neomake_open_list = 2       " open the location windows with the lin errors without move the cursor
 augroup neomake_lints
     autocmd!
     autocmd BufWritePost * Neomake
@@ -477,8 +458,8 @@ let g:neomake_php_phpcs_args_standard="PSR2"        " set PSR2 rules to be used 
 "/ Vim Test
 "/
 let test#strategy = "neovim"                      " Runs test commands with :terminal
-nnoremap <silent> <leader>tf :TestNearest<CR>
-nnoremap <silent> <leader>t% :TestFile<CR>
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
 nnoremap <silent> <leader>ta :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tg :TestVisit<CR>
@@ -509,6 +490,52 @@ set tags+=tags       " set the ctag files
 "
 " @todo migrate remaining commands to cheat40 plugin.
 
+
+
+"/ Rename
+"/
+" Use :Rename to rename a file within NeoVim and on the disk automatically (Note: NERDTree needs to be refresh manually)
+
+
+"/
+"/ Neomake
+"/
+" Neomake runs link and put the result into the curret windows associated location list windows.
+" So to see all the lint errors , type <leader>l or :lopen (open the location windows with the errors )
+"   See shortcuts for location windows on Vim-Qf plugin
+
+
+"/
+"/ Vim PHP CS Fixer
+"/
+" Press <F8>  to execute php-cs-fixer to the current file
+" Press <F9>  to execute php-cs-fixer to the current file
+
+"/
+"/ Vim Test
+"/
+" Press <leader>t , in a test file, to test the current function (Run the last test function runned if it's not in a test file)
+" Press <leader>tf , in a test file, to test the current test file. (Run the last test file runned if it's not in a test file)
+" Press <leader>ta , in any place, to test all suite test
+" Press <leader>tl , in any place, to run the last test command
+" Press <leader>tg , in any place, to open and go the the last test function runned ( even if a suite test or a file test was the last runned test commands)
+
+
+"/
+"/ Commentary
+"/
+" >Press <count>gcc to comment the current line or the count lines
+" Press gc<motion> to comment the lines the motion moves over (do not comment single or a bunch of word, only the entire line)
+" Press gc to comment all selection into visual mode
+" Press gcgc or gcu to uncomment adjacent comment lines (uncoment until it find an uncommented line, in either direction of the cursor)
+
+"/
+"/ Surrounding (Vim-Surround)
+"/
+" Press cs<caracter> to change the surrounding caracter of a text
+" Press cst to change the surrounding tag
+" Press ds<caracter> to delete the surrounding caracter
+" ON visual mode , use S to add surround caracteres
 
 "/
 "/ Abolish
@@ -568,7 +595,7 @@ set tags+=tags       " set the ctag files
 "    Type <c-f> to open |cmdline-window|. Use <c-c> to quit
 " Press <leader>* to search for the word in cursor without prompt
 " Press <leader>% to execute :Grepper -buffer and enter in prompt to find for an expression in the current buffer
-" Press <leader>F to make grepper ignores VCS ignore files
+" Press <leader>F to make grepper ignores VCS ignore files 
 " Press gs<motion> to search for the result of the motion
 "      gsi(
 " For search on command mode, use:
@@ -613,9 +640,9 @@ set tags+=tags       " set the ctag files
 "                or g flag to apply to all ocurrences.
 "                    :Dofile %s/foo/bar/g
 "                    :Dofile norm @q
-"    Hints :
+"    Hints : 
 "        :Reject <c-r><c-w> to reject all ocurrences containing  the <cword> (word under the cursor)
-"        :Reject <c-r><c-a> with the cursor under the file path to reject the current item on quicklist
+"        :Reject <c-r><c-a> with the cursor under the file path to reject the current item on quicklist 
 "        :Keep <c-r><c-f> with the cursor under the file path to keep all ocurrences the file
 "
 " Note : Vim-Qf quit NeoVim if the last window is a location/quickfix window
@@ -649,7 +676,6 @@ set tags+=tags       " set the ctag files
 "/ Helper scripts
 "/
 " ~/bin/ctags-update.sh
-" phpmd-rulesets.xml
 
 
 "/

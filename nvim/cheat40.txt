@@ -1,6 +1,6 @@
 Press q to dismiss, <Tab> to lose focus
 About {{{2
-  Bruno Neovim Cheat Sheet Menu :D 
+  Bruno Neovim Cheat Sheet Menu :D
   (powered by Cheat40 Plugin)
 
   Abbreviations used in descriptions:
@@ -62,10 +62,10 @@ New untitled document    :enew         N
 New/open file or dir     :e …          N
 Split window (horizontal):sp …         N
 Split window (horizontal):sp +term     N
-with a terminal buffer 
+with a terminal buffer
 Split window (vertical)  :vs …         N
 Split window (vertical)  :sv +term     N
-with a terminal buffer 
+with a terminal buffer
 Close buffer             :bd           N
 Ditto                    «Ldr»w        N
 Close all buffer         :%bd          N
@@ -119,16 +119,25 @@ Cut ‹n› characters »     ‹n›x          N
 Cut ‹n› characters «     ‹n›X          N
 Cut all                  :%d           N
 Copy                     y             O
-Copy into OS clipboard   "*y           O
+Copy into OS clipboard   «Ldr»y        O
+Ditto                    "*y           O
 Copy ‹n› lines           ‹n›yy         N
+Copy ‹n› lines into OS   ‹n›«Ldr»Y     N
+clipboard
+Ditto                    ‹n›"*Y        N
 Copy until the EOL       y$            N
 Copy all                 :%y           N
 Paste after cursor       p             N
+Paste from OS clipboard «Ldr»p         N
+after cursor
+Ditto                    "*p           N
 Paste before cursor      P             N
-Paste from OS clipboard  "*p           N
+Paste from OS clipboard «Ldr»P         N
+before cursor
+Ditto                    "*P           N
 Move line above          [e            N
 Move line below          ]e            N
-Exec. cmd and go back    «C-o» ‹Cmd›   I 
+Exec. cmd and go back    «C-o» ‹Cmd›   I
 to insert mode
 Insert black line above  [«Spc»        N
 Insert black line below  ]«Spc»        N
@@ -148,8 +157,8 @@ Paste from register ‹r›  «C-r»‹r›     IC
 #Examples:
 # "ay$  to copy rest of line to reg. a
 # "6p   to paste the content of reg. 6
-# Pasting from this register usually 
-# produces better results than using 
+# Pasting from this register usually
+# produces better results than using
 # the system paste («C-v»)
 }}}
 Visual mode (select)     v             N
@@ -334,6 +343,10 @@ Close window             «C-w»c        N
 Close all windows but    «C-w»«C-o»    N
 current
 Ditto                    «C-w»o        N
+Open Quickfix window     :cwindow      N
+Close Quickfix window    :cclose       N
+Open Location window     :lwindow      N
+Close Location window    :lclose       N
 Rotate windows »         «C-w»«C-r»    N
 Rotate windows «         «C-w»r        N
 Split horizontally       «C-w»s        N
@@ -386,9 +399,9 @@ Terminal {{{1
 Exec. cmd in a new       :terminal «F1»N
 terminal buffer
 Split window (horizontal):sp +term     N
-with a terminal buffer 
+with a terminal buffer
 Split window (vertical)  :sv +term     N
-Repeat last terminal     :!!           N 
+Repeat last terminal     :!!           N
 command
 Enter on terminal shell  i             N
 
@@ -405,32 +418,32 @@ View mappings            :map …        N
 View Insert mode mappings:imap …       N
 View registers           :di           N
 Ditto                    :registers    N
-#Ten types of registers:	
+#Ten types of registers:
 #1. The unnamed register ""
 #2. 10 numbered registers "0 to "9
 #>    :0  Last yank.
 #>    :1  Last deletion.
 #>    :2  Second last deletion.
-#>    And so on. Think of registers 1-9 
-#>    as a read-only queue with 9 
+#>    And so on. Think of registers 1-9
+#>    as a read-only queue with 9
 #   elements.
 #3. The small delete register "-
-#4. 26 named registers "a to "z or 
+#4. 26 named registers "a to "z or
 #   "A to "Z
-#5. three read-only registers 
+#5. three read-only registers
 #   ":, "., "%
 #   Can be only used with p, P or :put
 #   commands and «C-r»
 #>    ". Contains last insert text
-#>    "% Contains current file name 
-#>    ": Contains most recent executed 
+#>    "% Contains current file name
+#>    ": Contains most recent executed
 #>       ‹Cmd›
 #6. alternate buffer register "#
 #7. the expression register "=
-#8. The selection and drop registers 
-#   "*, "+ and "~ 
-# Use these registers for storing and 
-# retrieving the selected text for 
+#8. The selection and drop registers
+#   "*, "+ and "~
+# Use these registers for storing and
+# retrieving the selected text for
 # the GUI.
 # For Mac OS X, use "*
 #9. The black hole register "_
@@ -454,18 +467,18 @@ About {{{3
   plugin.
   Though easy-align can align lines of
   text around any delimiter, it provides
-  shortcuts for the most common use 
-  cases with the concept of 
+  shortcuts for the most common use
+  cases with the concept of
   "alignment rule".
 
   `Delimiter keys`: a single keystroke;
-  <Space>, `=`, `:`, `.`, `|`, `&`, 
+  <Space>, `=`, `:`, `.`, `|`, `&`,
   `#`, `,`
 }}}
 Align Around             ag            O
 # Example:
-#  gaip=   Align inner paragraph 
-#          around = 
+#  gaip=   Align inner paragraph
+#          around =
 
 
 }}}
@@ -508,7 +521,7 @@ Switch file list format  i             N
 
 Tagbar {{{2
 About {{{3
-  Provides an easy way to browse the 
+  Provides an easy way to browse the
   tags of the current file and get an
   overview of its structure.
 }}}
@@ -533,7 +546,7 @@ About {{{3
 finder
 }}}
 Open in find file mode   «C-p»         N
-Open Help Menu           ?             N 
+Open Help Menu           ?             N
 Open buffer list         «Ldr»b        N
 Open MRU buffer list     «Ldr»m        N
 Close CtrtP              «C-c»         N
@@ -543,9 +556,9 @@ Toggle mode »            «C-f»         N
 Toggle mode «            «C-b»         N
 Open file in new tab     «C-t»        *N
 Open file in new         «C-v»        *N
-vertical window 
+vertical window
 Open file in new         «C-x»        *N
-horizontal window 
+horizontal window
 Toggle filename search   «C-d»         N
 Toggle regexp search     «C-r»         N
 Creates a new file and   «C-y»         N
@@ -553,6 +566,31 @@ its parent directories
 Update file list cache   «F5»          N
 Toggle last buffers      «Ldr».        N
 Ditto                    «C-^».        N
+}}}
+
+Rename {{{2
+About {{{3
+  Rename a buffer and the disk
+  automatically.
+  Note: NERDTree needs to be refreshed
+  manually
+}}}
+Rename a buffer and the :Rename        N
+disk
+}}}
+
+Neomake {{{2
+About {{{3
+  Runs code lints asynchronously.
+  Puts the result into the a location
+  windows.
+  Configured to run on buffer write
+  event.
+
+  PHP: php -l, phpcs, phpmd
+}}}
+Open lint errors         «Ldr»l        N
+# (shortcut using VimQf pluggin)
 }}}
 
 Better Whitespace {{{2
@@ -565,22 +603,64 @@ Remove extra whitespaces :StripWhit... N
 # :StripeWhitspace
 }}}
 
+Surrouding {{{2
+About {{{3
+    Helping editing surrounding texts
+}}}
+Add text surrounding      ys           O
+yanked {motion}
+# Do not work for visual mode
+# ysiw[  changed
+# somefoo
+# to
+# [somefoo]
+# ysiw«Spc»[  changed
+# somefoo
+# to
+# [ somefoo ]
+# ysiw<a class="foo">  changed
+# somefoo
+# to
+# <a class="foo">somefoo</a>
+Add {} surrounding         ys‹Move›}    N
+yanked {motion}
+Add {} surrounding         ys‹Move›{    N
+yanked {motion} with
+space
+Add [] surrounding         ys‹Move›]    N
+yanked {motion}
+Add [] surrounding         ys‹Move›[    N
+yanked {motion} with
+space
+Add "" surrounding         ys‹Move›"    N
+yanked {motion}
+Add "" surrounding         ys‹Move›     N
+yanked {motion} with       «Spc»"
+space
+Add text surrounding       S            V
+selection
+Change ‹c› surrounding    cs‹c›        N
+Change tag surrounding    cst          N
+
+Delete ‹c› surrounding    ds‹c›        N
+Change tag surrounding    dst          N
+}}}
+
 Vim PHP Namespace {{{2
 About {{{3
   Inserting "use" statements
   automatically.
 }}}
-
 Add use statement to the  «Ldr»uu      N
 top of the file
 Sort use statement        «Ldr»us      N
 Expand full qualified     «Ldr»ec      N
-class name        
+class name
 }}}
 
 Vim PHP CS Fixer {{{2
 About {{{3
-  Integrates php-cs-fixer 
+  Integrates php-cs-fixer
 }}}
 Run php-cs-fixer into the «F8»         N
 current file
@@ -588,7 +668,40 @@ Run php-cs-fixer into the «F9»         N
 current directory
 }}}
 
-PDV -PHP Documentor ViM {{{2
+Vim Test {{{2
+About {{{3
+  Make run your tests a very fast task
+}}}
+Run the current test      «Ldr»tf      N
+function
+# If not in a test function, repeat the
+# last test function, even if a suite
+# test or a file test was the last test
+# command
+Run the current test      «Ldr»t%      N
+file
+Run all tests suite       «Ldr»ta      N
+Run last test comman      «Ldr»tl      N
+Go to the last test       «Ldr»tg      N
+function runned
+# Even if a suite test or a file test
+# was the last test command
+}}}
+
+Commentary {{{2
+About {{{3
+  Helper to comment lines
+}}}
+Comment/Uncomment lines   gc           O
+that {motion} moves over
+Comment/Uncomment current gcc          N
+line
+Uncomment adjacent        gcgc         N
+commented lines
+Ditto                     gcu          N
+}}}
+
+PDV -PHP Documentor VIM {{{2
 About {{{3
   Generates PHP Doc Blocks
 }}}
@@ -601,6 +714,6 @@ About Dictionary {{{2
   * A `buffer` is the in-memory text of
     a file.
   * A `window` is a viewport on a buffer.
-  * A `tab` page is a collection of 
+  * A `tab` page is a collection of
     windows.
 }}}
