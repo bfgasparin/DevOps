@@ -4,4 +4,7 @@
 .ignore
 .neovimsession.vim
 .php_cs.cache
-vendor/phpunit/php-code-coverage/src/Report
+webpack.mix.js
+node_modules
+vendor/phpunit/php-code-coverage
+vendor/bin

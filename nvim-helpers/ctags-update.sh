@@ -1,11 +1,13 @@
 #!/bin/bash
 if [ -f ".gitignore" ]; then
   if [ -f ".srclist" ]; then
-    ctags -R --exclude=@.ctagsignore -L .srclist -f  tags 
-	# --output-format=e-ctags 
+    ctags -R --exclude=@.ctagsignore -L .srclist -f  tags \
+        --kinds-PHP=dcfit     # d - constant definitions c - classes f -  functions i - interfaces t - traits
+	# --output-format=e-ctags
 	# e-ctags to cosider \, but is not working https://github.com/universal-ctags/ctags/issues/815
   else
-    ctags -R --exclude=@.ctagsignore -f tags 
+    ctags -R --exclude=@.ctagsignore -f tags \
+        --kinds-PHP=dcfit     # d - constant definitions c - classes f -  functions i - interfaces t - traits
 	# --output-format=e-ctags
 	# e-ctags to cosider \, but is not working https://github.com/universal-ctags/ctags/issues/815
   fi
