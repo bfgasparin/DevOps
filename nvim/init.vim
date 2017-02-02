@@ -195,12 +195,20 @@ inoremap <C-R> <C-G>u<C-R>
 "/ Laravel Specific
 "/
 " Open specific laravel directories
-nnoremap <Leader><Leader>lr :e routes/web.php<cr>
-nnoremap <Leader><Leader>ls :e app/Http/Services<cr>
+nnoremap <Leader><Leader>lrw :e routes/web.php<cr>
+nnoremap <Leader><Leader>lra :e routes/api.php<cr>
 nnoremap <Leader><Leader>lm :e app/Http/Models<cr>
 nnoremap <Leader><Leader>lc :e app/Http/Controllers<cr>
 nnoremap <Leader><Leader>lp :e app/Providers<cr>
+nnoremap <Leader><Leader>lt :e tests/<cr>
 nnoremap <Leader><Leader>lcf :e config<cr>
+nnoremap <Leader><Leader>ldm :e database/migrations<cr>
+nnoremap <Leader><Leader>lds :e database/seeds<cr>
+nnoremap <Leader><Leader>ldf :e database/factories/ModelFactory.php<cr>
+" Salao VIP
+nnoremap <Leader><Leader>ls :e app/Http/Services<cr>
+" laravel artisan
+nnoremap <Leader><Leader>lmm :!php artisan make:model<space>
 
 "/
 "/ Custom macros
@@ -448,6 +456,7 @@ augroup END
 "/ Vim PHP CS Fixer
 "/
 let g:php_cs_fixer_rules = "@PSR2"        " set PSR2 rules to be used on cs fixer
+let g:php_cs_fixer_default_mapping = 0    " Disable the default mapping (<leader>pcd)
 " Shortcuts to apply php-cs-fixer, and after update lint with Neomake
 augroup php_mappings
     autocmd!
@@ -508,16 +517,6 @@ set tags+=tags       " set the ctag files
 " Type <leader>? to open a cheat sheet menu
 "
 " @todo migrate remaining commands to cheat40 plugin.
-
-
-"/
-"/ Abolish
-"/
-" Use :Subvert/di{e,ce}/spinner{,s}/g  as replacement of :s command
-" Press crs for snake_case (coerce to snake case)
-" Press crm for MixedCase (coerce to mixed case)
-" Press crc for camelCase (coerce to camel case)
-" Press cru for UPPER_CASE (coerce to upper case)
 
 
 "/

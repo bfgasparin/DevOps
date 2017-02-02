@@ -709,6 +709,52 @@ Generate Doc Blocks       «Ldr»d       N
 #(uses UtilSnips templates)
 }}}
 
+Abolish {{{2
+About {{{3
+  Improves Subistitution and help coerce
+  words to to multiple variants of them
+}}}
+Find and Replace          :S/‹P›/‹P›/g N
+considering case variants
+(on current line)
+# variants: UPPERCASE, Titlecase
+Find and Replace          :S/‹P›/‹P›/g V
+considering case variants
+# variants: UPPERCASE, Titlecase
+Find and Replace          :S/‹P›{…,…}  N
+considering case variants /‹P›{…,…}/g
+and using placeholders
+for plural cases
+(on current line)
+# example:
+# :S/facilit{y,ies}/building{,s}/g
+# is the same as run all following
+# commands:
+# :s/facility/building/g
+# :s/Facility/Building/g
+# :s/FACILITY/BUILDING/g
+# :s/facilities/buildings/g
+# :s/Facilties/Buildings/g
+# :s/FACILITIES/BUILDINGS/g
+#
+# variants: UPPERCASE, Titlecase
+Find and Replace          :S/‹P›{…,…}/ V
+considering case variants ‹P›{…,…}/g
+and using placeholders
+for plural cases
+Find and Replace all      :%S/‹P›/‹P›  N
+considering case variants /g
+in current file
+# variants: UPPERCASE, Titlecase
+Ditto for all :S          :%Subvert   VN
+command variations        ‹P›{…,…}/
+                          ‹P›{…,…}/g
+Coerse to snake_case      crs         *N
+Coerse to MixedCase       crm         *N
+Coerse to camelCase       crc         *N
+Coerse to UPPER_CASE      cru         *N
+}}}
+
 About Dictionary {{{2
   Layout:
   * A `buffer` is the in-memory text of
