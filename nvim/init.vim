@@ -493,7 +493,10 @@ nnoremap <silent> <leader>ta :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tg :TestVisit<CR>
 
-
+"/
+"/ Vim Mkdir
+"/
+let g:mkdir_loaded = 1
 
 "-------------Auto-Commands--------------"
 
