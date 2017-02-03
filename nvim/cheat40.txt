@@ -147,13 +147,19 @@ Delete all before cursor «C-u»         C
 Insert this word         «C-r»«C-w»    C
 Insert this WORD         «C-r»«C-a»    C
 Insert this file path    «C-r»«C-f»    C
-Insert this qualified    %              C
+Insert the current       %             C
 filename
+# see :h extension-removal
+Insert the current       %:h           C
+file path
+# see :h filename-modifiers
 Registers {{{2
 Cut into register ‹r›    "‹r›d         O
 Copy into register ‹r›   "‹r›y         O
 Paste from register ‹r›  "‹r›p         N
 Paste from register ‹r›  «C-r»‹r›     IC
+Paste the current buffer «C-r»%       IC
+qualified filename
 #Examples:
 # "ay$  to copy rest of line to reg. a
 # "6p   to paste the content of reg. 6
