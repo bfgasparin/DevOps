@@ -98,6 +98,7 @@ set incsearch               " set incremental search, like modern browsers
 " directory names, and influences the result of expand(), glob() and
 " globpath()
 " Th itens with */ at the beginning is required by CtrlP wildignore support
+" (with no custom command)
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/.ctagsignore,*/.ignore,*/tags,*/.neovimsession,*/.vim,*/.php_cs.cache,*/.padawan/*,.git/*,.DS_Store,.hg,.svn,.ctagsignore,.ignore,tags,.neovimsession.vim,.php_cs.cache,.padawan/*
 
 "------------Netrw-----------------------"
@@ -572,9 +573,19 @@ set tags+=tags       " set the ctag files
 "      gsi(
 " For search on command mode, use:
 "     :Grepper <flags>
+" Without any flags, this opens the prompt with the default tool. The default
+" tool is the first tool in |g:grepper.tools|.
 " Or the custom commands:
 "     :Grepper-query something
 "
+" AG tool:
+" Use the argument -Q to search for literal string instead
+" regular expression
+" ag --vimgrep -Q  PATTERN
+" Use the argunment -G to search only on files that whose name matches PATTERN
+" ag --vimgrep -G PATTERN  <SEARCH-PATTERN>
+" Use -- to signify that the remaining arguments should not be treated as options
+" ag -- --foo              - Find for '--foo'
 
 
 "/

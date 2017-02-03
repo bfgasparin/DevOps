@@ -21,7 +21,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " autocomplete feature
  " @todo Configure padawan-php to work without bug https://github.com/padawan-php/padawan.php/issues/71#issuecomment-270927679
  " Plug 'padawan-php/deoplete-padawan'                         " asynchronous completion of PHP code using padawan project
- Plug 'danro/rename.vim'                                     " Rename a file on buffer and disk retaining the relative path
+ Plug 'danro/rename.vim'                                       " Rename a file on buffer and disk retaining the relative path
  Plug 'tpope/vim-repeat'                                       " Enable repeating plugin maps with .
 " " PHP
  Plug 'StanAngeloff/php.vim'                                   " A PHP 5.6 syntax file
