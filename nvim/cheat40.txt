@@ -28,6 +28,7 @@ About {{{2
   ‹c›       A single character
   …         Any text
   «C-…»     Press ctrl and … together
+  «M-…»     Press option or Meta and … together
   «Spc»     Press space bar
   «CR»      Press Enter
 
@@ -66,9 +67,9 @@ with a terminal buffer
 Split window (vertical)  :vs …         N
 Split window (vertical)  :sv +term     N
 with a terminal buffer
-Close buffer             :bd           N
-Ditto                    «Ldr»w        N
-Close all buffer         :%bd          N
+Delete buffer            :bd           N
+Ditto                    «Ldr»d        N
+Delete all buffer        :%bd          N
 Save                     :w            N
 Ditto                    «Ldr»s        N
 Save all                 :wa           N
@@ -119,24 +120,28 @@ Cut ‹n› characters »     ‹n›x          N
 Cut ‹n› characters «     ‹n›X          N
 Cut all                  :%d           N
 Copy                     y             O
-Copy into OS clipboard   «Ldr»y        O
+Copy into OS clipboard   «M-y»         O
 Ditto                    "*y           O
 Copy ‹n› lines           ‹n›yy         N
-Copy ‹n› lines into OS   ‹n›«Ldr»Y     N
+Copy ‹n› lines into OS   ‹n›«M-Y»      N
 clipboard
 Ditto                    ‹n›"*Y        N
 Copy until the EOL       y$            N
 Copy all                 :%y           N
 Paste after cursor       p             N
-Paste from OS clipboard «Ldr»p         N
+Paste from OS clipboard  «M-p»         N
 after cursor
 Ditto                    "*p           N
 Paste before cursor      P             N
-Paste from OS clipboard «Ldr»P         N
 before cursor
+Paste from OS clipboard  «M-P»         N
 Ditto                    "*P           N
-Move line above          [e            N
-Move line below          ]e            N
+Paste onto selection     p             V
+Paste from OS clipboard  «M-p»         V
+onto selection
+Ditto                    "*p           V
+Move line above          «M-k»         N
+Move line below          «M-j»         N
 Exec. cmd and go back    «C-o» ‹Cmd›   I
 to insert mode
 Insert black line above  [«Spc»        N
@@ -153,6 +158,7 @@ filename
 Insert the current       %:h           C
 file path
 # see :h filename-modifiers
+Sort lines by length     «Ldr»sl       V
 Registers {{{2
 Cut into register ‹r›    "‹r›d         O
 Copy into register ‹r›   "‹r›y         O
@@ -160,6 +166,8 @@ Paste from register ‹r›  "‹r›p         N
 Paste from register ‹r›  «C-r»‹r›     IC
 Paste the current buffer «C-r»%       IC
 qualified filename
+Clear all registers      :ClearRegist  N
+                         ers
 #Examples:
 # "ay$  to copy rest of line to reg. a
 # "6p   to paste the content of reg. 6
@@ -276,8 +284,8 @@ Scroll up a bit          «C-y»         N
 Scroll to the center     zz            N
 }}}
 Buffer {{{2
-Next buffer              «C-h»         N
-Prev buffer              «C-n»         N
+Next buffer              «C-l»         N
+Prev buffer              «C-h»         N
 }}}
 Fold {{{2
 Fold                     zc           *N
@@ -417,7 +425,7 @@ Help about …             :h …          N
 Help search              :helpgrep …   N
 # Use quickfix commands # to move
 # between results
-Detect Neovim problems   :CheckHealth  C
+Detect Neovim problems   :CheckHealth  N
 Plugin Help Menu         «F1»          N
 Help on highlight test   :h hitest.vim N
 View mappings            :map …        N
@@ -464,6 +472,17 @@ Current directory        :pwd          N
 Change directory         :cd …         N
 Show the value of ‹Var›  :echo ‹Var›   N
 Show value of option     :set ‹Var›?   N
+List modes where given   :map …        N
+key maps applies given
+map keys
+Ditto in a verbose       :verbose map …N
+manner
+# :verbose map <C-W>*
+
+Set filetype of current  :setf …       N
+buffer
+# setf php
+# setf javascript
 
 
 Plugins {{{1
@@ -485,9 +504,8 @@ Align Around             ag            O
 # Example:
 #  gaip=   Align inner paragraph
 #          around =
-
-
 }}}
+
 Vinager File Explorer (Netrw) {{{2
 About {{{3
   Wrapper for Netrw, enhancing it
@@ -514,6 +532,8 @@ Delete file/directory    D            *N
 Refresh file list        «C-l»         N
 File info                qf           *N
 Toggle files display     a             N
+Toogle last buffer       «Ldr».        N
+Ditto                    «C-^»         N
 # - normal
 # - hidden
 # - normal and hidden
@@ -534,7 +554,7 @@ About {{{3
 Open Tagbar              «C-\»         N
 Preview the tag          p            *N
 #(with autoclose)
-Select tab               «CR».        *N
+Select tab               «CR»         *N
 #(and close Tabbar)
 Close Tagbar             q             N
 }}}
@@ -544,6 +564,8 @@ About {{{3
   A Tree filesystem explorer.
 }}}
 Toggle NERDTree          «C-n»         N
+Open current file into   «M-n»         N
+NERDTree
 }}}
 
 CtrlP {{{2
@@ -570,8 +592,6 @@ Toggle regexp search     «C-r»         N
 Creates a new file and   «C-y»         N
 its parent directories
 Update file list cache   «F5»          N
-Toggle last buffers      «Ldr».        N
-Ditto                    «C-^».        N
 }}}
 
 Rename {{{2
@@ -585,6 +605,15 @@ Rename a buffer and the :Rename        N
 disk
 }}}
 
+Vim-Move {{{2
+About {{{3
+    Quickly move line/s up and down
+    in a visual manner
+}}}
+Move line/s down         «C-j»        VN
+Move line/s up           «C-k»        VN
+}}}
+
 Neomake {{{2
 About {{{3
   Runs code lints asynchronously.
@@ -595,7 +624,7 @@ About {{{3
 
   PHP: php -l, phpcs, phpmd
 }}}
-Open lint errors         «Ldr»l        N
+Open lint errors         «Ldr»wl       N
 # (shortcut using VimQf pluggin)
 }}}
 
@@ -657,10 +686,10 @@ About {{{3
   Inserting "use" statements
   automatically.
 }}}
-Add use statement to the  «Ldr»uu      N
+Add use statement to the  «Ldr»uu     IN
 top of the file
-Sort use statement        «Ldr»us      N
-Expand full qualified     «Ldr»ec      N
+Sort use statement        «Ldr»su    IN
+Expand full qualified     «Ldr»ec     IN
 class name
 }}}
 
@@ -711,7 +740,7 @@ PDV -PHP Documentor VIM {{{2
 About {{{3
   Generates PHP Doc Blocks
 }}}
-Generate Doc Blocks       «Ldr»d       N
+Generate Doc Blocks       «Ldr»«Ldr»d  N
 #(uses UtilSnips templates)
 }}}
 
@@ -759,6 +788,34 @@ Coerse to snake_case      crs         *N
 Coerse to MixedCase       crm         *N
 Coerse to camelCase       crc         *N
 Coerse to UPPER_CASE      cru         *N
+}}}
+
+Qf {{{2
+About {{{3
+  Collection of commands for quickfix
+  location windows
+}}}
+Toogle quickfix window   «Ldr»wq       N
+Toogle location window   «Ldr»wl       N
+}}}
+
+Bbye {{{2
+About {{{3
+  Close buffers without close windows
+}}}
+Close buffer             :Bdelete      N
+without close windows
+Ditto                    «Ldr»c        N
+Close all buffer         :bufdo        N
+without close windows    :Bdelete
+}}}
+
+
+Fugitive {{{2
+About {{{3
+  A Git wrapper to interacts with Git
+}}}
+Open git status windows  «C-g»         N
 }}}
 
 About Dictionary {{{2

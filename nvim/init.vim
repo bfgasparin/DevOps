@@ -9,8 +9,8 @@ endif
 syntax enable
 set encoding=utf8
 colorscheme atom-dark-256        " Set the colorscheme
-
-set cursorline                   " Highlight the cursor line
+" colorscheme github                 " Set the colorscheme
+set cursorline                     " Highlight the cursor line
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1 " makes the cursor a pipe in insert-mode, and a block in normal-mode
 "
@@ -45,15 +45,26 @@ set laststatus=2            " Set statusline to appear all the time (default to 
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
+"
+" Customize colors for better visual with airline themes
+"
+" theme: gasparin (change the iTerm Profile to Dark Gasparin Theme )
 " customize the vertical split line
 hi vertsplit ctermfg=234 ctermbg=127 guibg=#A55989 guifg=bg
-
-" customize the Visual and Search mode highlights colors
+" customize the Visual and Search mode highlights colors (better with dark theme)
 hi Visual ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
 hi Search ctermfg=231 ctermbg=97 guifg=fg guibg=#605A79
-"
 " disable foreground for Cursorline
 hi Cursorline ctermfg=none guifg=none
+"
+"
+"
+" theme: papercolor (change the iTerm Profile to Light Gasparin Theme )
+" customize the vertical split line
+" hi vertsplit ctermbg=183 ctermfg=234 guibg=#dbbdd0 guifg=bg
+" disable foreground for Cursorline
+" hi Cursorline ctermbg=252 guibg=#d9d9d9
+" hi Cursor guifg=black guibg=black
 
 "-------------Coding-------------"
 
@@ -79,7 +90,7 @@ set cpoptions+=y                  " Add yank command can be redone with "."
 
 
 "----------------Buffer--------------
-set hidden
+set hidden              " Make a buffer hidden when abandoned
 " nnoremap <leader>d :call functions#DeleteFileAndCloseBuffer() " Its not working
 
 "--------------Splitting--------------
@@ -129,10 +140,11 @@ augroup cr_mapping
 augroup END
 
 " shortcut to save
-nnoremap <leader>s :w<cr>
+nnoremap <C-s> :w<cr>
+inoremap <C-s> <esc>:w<cr>
 "
 " shortcut to delete buffer
-nnoremap <leader>w :bd<cr>
+nnoremap <leader>d :bd<cr>
 
 " switch between current and last buffer
 nnoremap <leader>. <c-^>
@@ -142,6 +154,11 @@ nnoremap <leader>. <c-^>
 "     Source : https://github.com/neovim/neovim/wiki/FAQ#my-ctrl-h-mapping-doesnt-work
 nnoremap <C-h> :bprevious<cr>
 nnoremap <C-l> :bnext<cr>
+" Quick note: for Meta key mapping into Iterm, I need configure into User
+" Profile to map left option act as +Esc
+" Preferences > Profiles > Keys > Left option acts as +Esc
+" nnoremap <M-h> :bprevious<cr>
+" nnoremap <M-l> :bnext<cr>
 
 " Quick access to neovim config file
 nnoremap <leader>ev :e! $MYVIMRC <cr>
@@ -150,8 +167,10 @@ nnoremap <leader>ev :e! $MYVIMRC <cr>
 nnoremap <Leader><space> :nohlsearch<cr>
 
 " Quickly move current line
-nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
-nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+" nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+" nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+" xnoremap [e  :<c-u>execute 'move -1-'.i v:count1<cr>
+" xnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Quickly add empty lines
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
@@ -162,14 +181,14 @@ xnoremap <  <gv
 xnoremap >  >gv
 
 " shortcut for copy/paste to system clipboard
-nnoremap <leader>y "*y
-nnoremap <leader>Y "*Y
-nnoremap <leader>p "*p
-nnoremap <leader>P "*P
-xnoremap <leader>y "*y
-xnoremap <leader>Y "*Y
-xnoremap <leader>p "*p
-xnoremap <leader>P "*P
+nnoremap <M-y> "*y
+nnoremap <M-Y> "*Y
+nnoremap <M-p> "*p
+nnoremap <M-P> "*P
+xnoremap <M-y> "*y
+xnoremap <M-Y> "*Y
+xnoremap <M-p> "*p
+xnoremap <M-P> "*P
 
 
 "/
@@ -191,6 +210,9 @@ tnoremap <Esc> <C-\><C-n>
 " See i_CTRL-G_u
 inoremap <C-R> <C-G>u<C-R>
 
+"Sort PHP use statements
+vmap <Leader>sl ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<cr>
+
 
 "/
 "/ Laravel Specific
@@ -198,7 +220,6 @@ inoremap <C-R> <C-G>u<C-R>
 " Open specific laravel directories
 nnoremap <Leader><Leader>lrw :e routes/web.php<cr>
 nnoremap <Leader><Leader>lra :e routes/api.php<cr>
-nnoremap <Leader><Leader>lm :e app/Http/Models<cr>
 nnoremap <Leader><Leader>lc :e app/Http/Controllers<cr>
 nnoremap <Leader><Leader>lp :e app/Providers<cr>
 nnoremap <Leader><Leader>lt :e tests/<cr>
@@ -210,11 +231,26 @@ nnoremap <Leader><Leader>ldf :e database/factories/ModelFactory.php<cr>
 nnoremap <Leader><Leader>ls :e app/Http/Services<cr>
 " laravel artisan
 nnoremap <Leader><Leader>lmm :!php artisan make:model<space>
-
+nnoremap <Leader><Leader>lmc :!php artisan make:controller<space>
+nnoremap <Leader><Leader>lmt :!php artisan make:test<space>
 "/
 "/ Custom macros
 "/
 " let @<index>=""
+
+"-------------Commands--------------------"
+
+
+function! ClearRegisters()
+    let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
+    let i=0
+    while (i<strlen(regs))
+        exec 'let @'.regs[i].'=""'
+        let i=i+1
+    endwhile
+endfunction
+
+command! ClearRegisters call ClearRegisters()
 
 
 "-------------Plugins--------------------"
@@ -229,9 +265,9 @@ let g:cheat40_use_default = 0     " disable default cheat40. Uses the cheat at ~
 "/ NerdTree
 "/
 " Toogle NerdTree
-nnoremap <silent> <c-n>  :NERDTreeToggle<cr>
+nnoremap <silent> <C-n> :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
-nnoremap <silent> <leader>n :NERDTreeFind<cr>
+nnoremap <silent> <M-n> :NERDTreeFind<cr>
 
 " Customize Arrow fonts
 let NERDTreeDirArrowExpandable = '▷'
@@ -243,7 +279,7 @@ let NERDTreeHijackNetrw = 0
 "/ Tagbar
 "/
 " Open the Tagbar window, jump to it and close it on tag selection
-nnoremap <c-\> :TagbarOpenAutoClose<CR>
+nnoremap <C-\> :TagbarOpenAutoClose<CR>
 
 
 "/
@@ -267,7 +303,8 @@ let g:airline_left_sep = ' '
 let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
-let g:airline_theme='gasparin'
+let g:airline_theme='gasparin'  " dark theme
+" let g:airline_theme='papercolor'  " light theme
 
 "/
 "/ CtrlP
@@ -275,9 +312,10 @@ let g:airline_theme='gasparin'
 " Open buffer menu
 nnoremap <leader>b :CtrlPBuffer<CR>
 " Open most recently used files
-nnoremap <Leader>m :CtrlPMRUFiles<CR>
+nnoremap <leader>m :CtrlPMRUFiles<CR>
 
-let g:ctrlp_mruf_relative = 1                                 " Show only MRU files in the working directory.
+let g:ctrlp_mruf_relative = 1                  " Show only MRU files in the working directory.
+" let g:ctrlp_map = '<M-p>'                      " Change de default mapping to toggle CtrlP
 
 " Configure CtrlP to use Ag (Silver Search)
 if executable('ag')
@@ -319,8 +357,10 @@ nmap ga <Plug>(EasyAlign)
 "/
 let g:indentLine_enabled = 1
 let g:indentLine_concealcursor = 0
-let g:indentLine_color_gui = '#383838'
-let g:indentLine_color_term = 237
+let g:indentLine_color_gui = '#383838' " for dark theme
+let g:indentLine_color_term = 237      " for dark theme
+" let g:indentLine_color_gui = '#e5e5e5' " for light theme
+" let g:indentLine_color_term = 7      " for light theme
 let g:indentLine_char = '┆'
 let g:indentLine_faster = 1
 
@@ -328,7 +368,7 @@ let g:indentLine_faster = 1
 "/
 "/ Vim Better Whitespace
 "/
-" Configure the backgroud color for trailing whitespaces
+" Configure the background color for trailing whitespaces
 highlight ExtraWhitespace ctermbg=236 guibg=#282E33
 " removes trailing whitespaces when saving buffer
 augroup clear_trailing_whitespace
@@ -367,9 +407,15 @@ xmap gs <plug>(GrepperOperator)
 "
 let g:qf_mapping_ack_style = 1           " Enable Ack.vim-inspired mappings in location/quickfix windows:
 " Toggle the quickfix window.
-nmap <leader>q <Plug>QfCtoggle
+nmap <leader>wq <Plug>QfCtoggle
 " Toggle the current window's location window
-nmap <leader>l <Plug>QfLtoggle
+nmap <leader>wl <Plug>QfLtoggle
+
+
+"/
+"/ Vim Bbye (Buffer Bye)
+"
+:nnoremap <Leader>c :Bdelete<CR>
 
 "/
 "/ Deoplete (autocomplete)
@@ -378,6 +424,10 @@ let g:deoplete#enable_at_startup = 1                 " Enable it at startup
 let g:deoplete#enable_smart_case = 1                 " Use smartcase
 " @TODO trigger complete with 1 caracter
 
+"/
+"/ Vim Move
+"/
+let g:move_key_modifier = 'M'  " Change de move key to Meta
 
 " Trigger Deoplete with <TAB>
 inoremap <silent><expr> <TAB>
@@ -404,13 +454,13 @@ let g:pdv_template_dir = $HOME ."/.config/nvim/plugins/pdv/templates_snip"    " 
 " Shortcut to add php docblocks
 augroup php_docblocks
     autocmd!
-    autocmd FileType php nnoremap <buffer> <leader>d :call pdv#DocumentWithSnip()<CR>
+    autocmd FileType php nnoremap <buffer> <leader><leader>d :call pdv#DocumentWithSnip()<CR>
 augroup END
 
 "/
 "/ Vim PHP Namespace
 "/
-let g:php_namespace_sort_after_insert = 1                " Sort dependencies every time one is inserted
+let g:php_namespace_sort_after_insert = 0               " Sort dependencies every time one is inserted
 "
 " Insert use statement at the top of the file
 "     new Response<-- cursor here or on the name; hit <leader>u now to insert the use statement
@@ -433,10 +483,9 @@ augroup php_namespace
     autocmd FileType php inoremap <buffer> <Leader>ec <Esc>:call IPhpExpandClass()<CR>
     autocmd FileType php noremap <buffer> <Leader>ec :call PhpExpandClass()<CR>
     " Sort php use statements
-    autocmd FileType php inoremap <buffer> <Leader>us <Esc>:call PhpSortUse()<CR>
-    autocmd FileType php noremap <buffer> <Leader>us :call PhpSortUse()<CR>
+    autocmd FileType php inoremap <buffer> <Leader>su <Esc>:call PhpSortUse()<CR>
+    autocmd FileType php noremap <buffer> <Leader>su :call PhpSortUse()<CR>
 augroup END
-
 
 
 "/
@@ -483,6 +532,14 @@ augroup END
 " Note : For PHP, Neomake, by default, will run php -l, phpcs and phpmd, if available.
 let g:neomake_php_phpcs_args_standard="PSR2"        " set PSR2 rules to be used by phpcs when new make runs.
 
+" ignore phpcs lint for test classes (cause some patterns, like test function name does not follow the PS2 standard)
+let g:neomake_php_phpcs_maker = {
+    \ 'args': ['--standard='. expand(g:neomake_php_phpcs_args_standard), '--ignore=*/tests/*,*/database/*', '--report=csv'],
+    \ 'errorformat':
+            \ '%-GFile\,Line\,Column\,Type\,Message\,Source\,Severity%.%#,'.
+            \ '"%f"\,%l\,%c\,%t%*[a-zA-Z]\,"%m"\,%*[a-zA-Z0-9_.-]\,%*[0-9]%.%#'
+    \ }
+
 "/
 "/ Vim Test
 "/
@@ -497,6 +554,17 @@ nnoremap <silent> <leader>tg :TestVisit<CR>
 "/ Vim Mkdir
 "/
 let g:mkdir_loaded = 1
+
+"/
+"/ Vim Cheat40
+"/
+nmap <M-?> <plug>Cheat40Open
+
+"/
+"/ Fugitive (Git)
+"/
+" Shortcut to open Git status windows
+nmap <C-g> :Gstatus<cr>
 
 "-------------Auto-Commands--------------"
 
@@ -526,7 +594,7 @@ set tags+=tags       " set the ctag files
 "/
 "/ NERDTree
 "/
-" Press <leader>n to search the current file in NERDTree (custom shortcut)
+" Press <M-n> to search the current file in NERDTree (custom shortcut)
 " Press <c-n> to toogle NERDTree (custom shortcut)
 "     Press o to open or close a node. If file, opens the file into current buffer
 "     Press s to open vertical split

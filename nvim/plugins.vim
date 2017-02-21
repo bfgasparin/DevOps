@@ -1,8 +1,8 @@
 call plug#begin('~/.config/nvim/plugged')
 
  " colorschemes
- Plug 'gosukiwi/vim-atom-dark'           " colorscheme
-
+ Plug 'gosukiwi/vim-atom-dark'           " dark colorscheme
+ Plug 'albertorestifo/github.vim'         " light colorscheme
 
  "visual
  Plug 'vim-airline/vim-airline'        " fancy statusline
@@ -23,6 +23,7 @@ call plug#begin('~/.config/nvim/plugged')
  " Plug 'padawan-php/deoplete-padawan'                         " asynchronous completion of PHP code using padawan project
  Plug 'danro/rename.vim'                                       " Rename a file on buffer and disk retaining the relative path
  Plug 'tpope/vim-repeat'                                       " Enable repeating plugin maps with .
+ Plug 'matze/vim-move'                                         " Quickly move line up and down
 " " PHP
  Plug 'StanAngeloff/php.vim'                                   " A PHP 5.6 syntax file
  Plug 'arnaud-lb/vim-php-namespace'                            " add use statement and expand fully qualified php classes
@@ -41,8 +42,8 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'tpope/vim-vinegar' " alternative and minimalist file finder
  Plug 'majutsushi/tagbar' " show current file ctags in a diferent view
  Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
-Plug 'romainl/vim-qf'   " Collections of settings, commands and mappings to easily work with quickfix/location windows
-
+ Plug 'romainl/vim-qf'   " Collections of settings, commands and mappings to easily work with quickfix/location windows
+ Plug 'moll/vim-bbye'    " Delete buffers and close files in NeoVim without closing windows
 " helper
  Plug 'lifepillar/vim-cheat40'
 call plug#end()
