@@ -4,6 +4,10 @@
 .ignore
 .neovimsession.vim
 .php_cs.cache
+composer.json
+composer.lock
+yarn.lock
+composer.phar
 webpack.mix.js
 node_modules
 vendor/phpunit/php-code-coverage

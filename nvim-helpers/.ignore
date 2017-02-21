@@ -1,7 +1,8 @@
 # ignored files for Ag (The silver search)
 # Ag is configured on NVIM to automatically ignores dot-files (default behavior)
 #frontend
-#node_modules/xxx
+yarn.lock
+node_modules/
 #php projects
 vendor/bin/
 vendor/composer/
@@ -12,3 +13,4 @@ composer.lock
 deploy.sh
 # laravel
 storage/
+public/
