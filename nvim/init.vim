@@ -260,7 +260,6 @@ command! ClearRegisters call ClearRegisters()
 "/
 let g:cheat40_use_default = 0     " disable default cheat40. Uses the cheat at ~/.config/nvim/
 
-
 "/
 "/ NerdTree
 "/
@@ -551,11 +550,6 @@ nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tg :TestVisit<CR>
 
 "/
-"/ Vim Mkdir
-"/
-let g:mkdir_loaded = 1
-
-"/
 "/ Vim Cheat40
 "/
 nmap <M-?> <plug>Cheat40Open
@@ -603,6 +597,9 @@ set tags+=tags       " set the ctag files
 "     Press q to close NerdTree windows
 "     Press a to toggle zoom NerdTree windows
 "     Press m to open a helpful menu with some helper methods, <ESC> to exit menu
+"           On menu, press a to create a new dir/file recursively
+"           On menu, press d to delete a dir/file recursively
+"           On menu, press m to move a dir/file recursively
 "     Press I to toggle hidden file
 
 
