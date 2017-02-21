@@ -240,7 +240,15 @@ nnoremap <Leader><Leader>lmt :!php artisan make:test<space>
 
 "-------------Commands--------------------"
 
+" command to refresh ctags file
+function! CtagsRefresh()
+    execute "!rm tags"
+    execute "!ctags-update.sh"
+endfunction
 
+command! CtagsRefresh call CtagsRefresh()
+
+" command to clear registers
 function! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
