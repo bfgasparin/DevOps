@@ -305,6 +305,7 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = '|'
+let g:airline#extensions#tabline#buffer_nr_show = 1         " Show the buffer number
 let g:airline_powerline_fonts= 1
 let g:airline_left_sep = ' '
 let g:airline_left_alt_sep = '|'
@@ -615,7 +616,8 @@ set tags+=tags       " set the ctag files
 "/ Fugitive (Git)
 "/
 " Use :Git <command git> to execute raw git command
-" Use :GStatus to open a git status windows
+" Use :GStatus to open a git status preview windows
+"    Press g? to open a help file
 "    Press - to staged or unstage a given file (works on visual mode)
 "    Press d to see the cursor file diff into an horizontal split (same as :Gdiff)
 "    Press dv to see the cursor file diff into a vertical split (same as :Gvdiff)
@@ -667,8 +669,8 @@ set tags+=tags       " set the ctag files
 "/
 "/ Vim Qf ( Searching / Search and Replate )
 "/
-" Type <leader>q to toggle quickfix window
-" Type <leader>l to toggle location window
+" Type <leader>wq to toggle quickfix window
+" Type <leader>wl to toggle location window
 " In quickfix/location windows, type:
 "    s - open entry in a new horizontal window
 "    v - open entry in a new vertical window

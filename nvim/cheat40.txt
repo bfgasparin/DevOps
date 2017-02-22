@@ -286,6 +286,11 @@ Scroll to the center     zz            N
 Buffer {{{2
 Next buffer              «C-l»         N
 Prev buffer              «C-h»         N
+Edit buffer              ‹n›buffer     O
+Ditto                    ‹n›b          O
+Ditto                    ‹n›bu         O
+List buffers             :ls           N
+Ditto                    :buffers      N
 }}}
 Fold {{{2
 Fold                     zc           *N
@@ -361,6 +366,8 @@ Open Quickfix window     :cwindow      N
 Close Quickfix window    :cclose       N
 Open Location window     :lwindow      N
 Close Location window    :lclose       N
+Close preview window     :pclose       N
+Ditto                    «C-w»z        N
 Rotate windows »         «C-w»«C-r»    N
 Rotate windows «         «C-w»r        N
 Split horizontally       «C-w»s        N
@@ -816,6 +823,7 @@ About {{{3
   A Git wrapper to interacts with Git
 }}}
 Open git status windows  «C-g»         N
+Open help file           g?            N
 }}}
 
 About Dictionary {{{2
