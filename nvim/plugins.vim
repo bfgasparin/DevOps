@@ -19,6 +19,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'tpope/vim-abolish'                                      " easily search for, substitute, and abbreviate multiple variants of a word (snakeCase, camelCase, ...)
  Plug 'mhinz/vim-grepper'                                      " code Searching/Search and Replace  tool (With Neovim Async support)
  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " autocomplete feature
+ Plug 'lvht/phpcd.vim', { 'for': 'php' , 'do': 'composer update' } " autocomplete for php
  " @todo Configure padawan-php to work without bug https://github.com/padawan-php/padawan.php/issues/71#issuecomment-270927679
  " Plug 'padawan-php/deoplete-padawan'                         " asynchronous completion of PHP code using padawan project
  Plug 'danro/rename.vim'                                       " Rename a file on buffer and disk retaining the relative path

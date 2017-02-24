@@ -88,15 +88,16 @@ set foldlevel=1             " close folders with level 2 or greater by default
 
 set cpoptions+=y                  " Add yank command can be redone with "."
 
+"-------------Navigating------------
+set nostartofline                 " Do not jump to first character with page commands.
 
 "----------------Buffer--------------
 set hidden              " Make a buffer hidden when abandoned
-" nnoremap <leader>d :call functions#DeleteFileAndCloseBuffer() " Its not working
+
 
 "--------------Splitting--------------
 set splitbelow          " Horizontal split below current.
 set splitright          " Vertical split to right of current.
-set nostartofline       " Do not jump to first character with page commands.
 
 
 "-------------Searching--------------"
@@ -249,7 +250,7 @@ endfunction
 command! CtagsRefresh call CtagsRefresh()
 
 " command to clear registers
-function! ClearRegisters()
+function! RegistersClear()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
     while (i<strlen(regs))
@@ -258,7 +259,7 @@ function! ClearRegisters()
     endwhile
 endfunction
 
-command! ClearRegisters call ClearRegisters()
+command! RegistersClear call RegistersClear()
 
 
 "-------------Plugins--------------------"
@@ -430,6 +431,9 @@ nmap <leader>wl <Plug>QfLtoggle
 "/
 let g:deoplete#enable_at_startup = 1                 " Enable it at startup
 let g:deoplete#enable_smart_case = 1                 " Use smartcase
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.php = '->\|::'          " Configure deoplete to call omnifunc for php when I type -> or :: (disable deoplete features when this happen)
+                                                     " lvht/phpcd omnifunc is used in these cases
 " @TODO trigger complete with 1 caracter
 
 "/
@@ -748,3 +752,5 @@ set tags+=tags       " set the ctag files
 " - universal-ctags (for tagging files) - uses .ctagsignore to ignore files
 " - ryanoasis/nerd-fonts for fonts with devicons
 " - ggreer/the_silver_searcher (ag for code searching) - uses .ignore to ignore files
+"   msgpack php extention (msgpack/msgpack-php) - used by lvht/phpcd omnifunc
+"   PCNTL php extention - used by lvht/phpcd omnifunc

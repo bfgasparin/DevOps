@@ -160,20 +160,53 @@ file path
 # see :h filename-modifiers
 Sort lines by length     «Ldr»sl       V
 Registers {{{2
+Clear all registers      :ClearRegist  N
+                         ers
 Cut into register ‹r›    "‹r›d         O
 Copy into register ‹r›   "‹r›y         O
 Paste from register ‹r›  "‹r›p         N
 Paste from register ‹r›  «C-r»‹r›     IC
 Paste the current buffer «C-r»%       IC
 qualified filename
-Clear all registers      :ClearRegist  N
-                         ers
+View registers           :di           N
+Ditto                    :registers    N
 #Examples:
 # "ay$  to copy rest of line to reg. a
 # "6p   to paste the content of reg. 6
 # Pasting from this register usually
 # produces better results than using
 # the system paste («C-v»)
+#
+# Ten types of registers:
+# 1. The unnamed register ""
+# 2. 10 numbered registers "0 to "9
+# >    :0  Last yank.
+# >    :1  Last deletion.
+# >    :2  Second last deletion.
+# >    And so on. Think of registers 1-9
+# >    as a read-only queue with 9
+#    elements.
+# 3. The small delete register "-
+# 4. 26 named registers "a to "z or
+#    "A to "Z
+# 5. three read-only registers
+#    ":, "., "%
+#    Can be only used with p, P or :put
+#    commands and «C-r»
+# >    ". Contains last insert text
+# >    "% Contains current file name
+# >    ": Contains most recent executed
+# >       ‹Cmd›
+# 6. alternate buffer register "#
+# 7. the expression register "=
+# 8. The selection and drop registers
+#   "*, "+ and "~
+# Use these registers for storing and
+# retrieving the selected text for
+# the GUI.
+# For Mac OS X, use "*
+#9. The black hole register "_
+#10. Last search pattern register "/
 }}}
 Visual mode (select)     v             N
 Linewise visual mode     V             N
@@ -281,7 +314,18 @@ Go down half a page      «C-d»         N
 Go up half a page        «C-u»         N
 Scroll down a bit        «C-e»         N
 Scroll up a bit          «C-y»         N
+Scroll to the center     zt            N
+Scroll to the center     z«CR»         N
+putting the cursor
+at First non-blank
 Scroll to the center     zz            N
+Scroll to the center     z.            N
+putting the cursor
+at First non-blank
+Scroll to the center     zb            N
+Scroll to the center     z-            N
+putting the cursor
+at First non-blank
 }}}
 Buffer {{{2
 Next buffer              «C-l»         N
@@ -389,6 +433,24 @@ Increase width           «C-w»>        N
 Exec. Cmd in all windows :windo ‹Cmd›  N
 }}}
 
+Tab {{{2
+New untitled tab         :tabnew       N
+New/open in tab          :tabe …       N
+Next tab                 gt            N
+Previous tab             gT            N
+Go to tab n              ‹n›gt         N
+Close tab                :tabc         N
+Ditto                    :tabclose     N
+Close tab without saving :tabc!        N
+Close all other tabs     :tabo         N
+List tabs                :tabs         N
+Move window to new tab   «C-w»T        N
+Open one tab per buffer  :tab ball     N
+Execute Cmd in all tabs  :tabdo ‹Cmd›  N
+# Closing the last window of a tab
+# page closes the tab page too
+}}}
+
 Search {{{1
 Search forward           /‹P›          M
 Search backward          ?‹P›          M
@@ -437,38 +499,6 @@ Plugin Help Menu         «F1»          N
 Help on highlight test   :h hitest.vim N
 View mappings            :map …        N
 View Insert mode mappings:imap …       N
-View registers           :di           N
-Ditto                    :registers    N
-#Ten types of registers:
-#1. The unnamed register ""
-#2. 10 numbered registers "0 to "9
-#>    :0  Last yank.
-#>    :1  Last deletion.
-#>    :2  Second last deletion.
-#>    And so on. Think of registers 1-9
-#>    as a read-only queue with 9
-#   elements.
-#3. The small delete register "-
-#4. 26 named registers "a to "z or
-#   "A to "Z
-#5. three read-only registers
-#   ":, "., "%
-#   Can be only used with p, P or :put
-#   commands and «C-r»
-#>    ". Contains last insert text
-#>    "% Contains current file name
-#>    ": Contains most recent executed
-#>       ‹Cmd›
-#6. alternate buffer register "#
-#7. the expression register "=
-#8. The selection and drop registers
-#   "*, "+ and "~
-# Use these registers for storing and
-# retrieving the selected text for
-# the GUI.
-# For Mac OS X, use "*
-#9. The black hole register "_
-#10. Last search pattern register "/
 List of sourced files    :scr          N
 List of digraphs         :digraphs     N
 List all syntax items    :syn          N
@@ -477,8 +507,13 @@ List all syntax items    :syn          N
 Misc {{{1
 Current directory        :pwd          N
 Change directory         :cd …         N
-Show the value of ‹Var›  :echo ‹Var›   N
+Show the value of        :echo ‹Var›   N
+variable
+Set value of option      :set ‹Var›=…  N
 Show value of option     :set ‹Var›?   N
+Set the current file     :set syntax=… N
+syntax type for
+highlighting
 List modes where given   :map …        N
 key maps applies given
 map keys
